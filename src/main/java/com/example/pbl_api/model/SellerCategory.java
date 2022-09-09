@@ -18,4 +18,12 @@ public class SellerCategory {
 
     @OneToMany(mappedBy = "sellerCategory")
     private Set<Product> productSet;
+
+    public SellerCategory(String name) {
+        this.name = name;
+    }
+
+    public SellerCategory() {
+
+    }
 }

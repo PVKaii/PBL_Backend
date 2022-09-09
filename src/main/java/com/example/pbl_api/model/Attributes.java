@@ -19,4 +19,13 @@ public class Attributes {
 
     @ManyToMany(mappedBy = "attributesSet")
     private Set<Product> productSet;
+
+
+    public Attributes() {
+    }
+
+    public Attributes(String name, OptionGroup optionGroup) {
+        this.name = name;
+        this.optionGroup = optionGroup;
+    }
 }

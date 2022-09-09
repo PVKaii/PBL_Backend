@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AttributesRepository extends CrudRepository<Attributes,Integer> {
+    Attributes findAttributesByName(String name);
 }

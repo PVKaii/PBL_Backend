@@ -20,4 +20,11 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<OptionGroup> optionGroupSet;
 
+    public Category() {
+    }
+
+    public Category(String name, SellerCategory sellerCategory) {
+        this.name = name;
+        this.sellerCategory = sellerCategory;
+    }
 }

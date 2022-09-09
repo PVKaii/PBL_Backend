@@ -20,4 +20,24 @@ public class OptionGroup {
 
     @OneToMany(mappedBy = "optionGroup")
     private Set<Attributes> attributesSet;
+
+    public OptionGroup() {
+    }
+
+    public OptionGroup(String name, Category category) {
+        this.name = name;
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
 }

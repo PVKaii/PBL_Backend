@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SellerCategoryRepository extends CrudRepository<SellerCategory,Integer> {
+    SellerCategory findSellerCategoryByName(String name);
 }
