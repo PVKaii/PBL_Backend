@@ -1,6 +1,6 @@
 package com.example.pbl_api.repository;
 
-import com.example.pbl_api.model.Warranty;
+import com.example.pbl_api.entity.Warranty;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.pbl_api.model;
+package com.example.pbl_api.entity;
 
 import javax.persistence.*;
 import java.util.Set;

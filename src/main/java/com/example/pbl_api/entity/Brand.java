@@ -1,4 +1,4 @@
-package com.example.pbl_api.model;
+package com.example.pbl_api.entity;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,5 +22,21 @@ public class Brand {
 
     public Brand() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Product> getProductSet() {
+        return productSet;
+    }
+
+    public void setProductSet(Set<Product> productSet) {
+        this.productSet = productSet;
     }
 }

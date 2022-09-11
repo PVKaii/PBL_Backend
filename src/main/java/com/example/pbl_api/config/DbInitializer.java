@@ -1,6 +1,6 @@
 package com.example.pbl_api.config;
 
-import com.example.pbl_api.model.*;
+import com.example.pbl_api.entity.*;
 import com.example.pbl_api.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
