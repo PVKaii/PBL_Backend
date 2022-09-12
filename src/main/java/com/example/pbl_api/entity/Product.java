@@ -34,8 +34,8 @@ public class Product {
     private double rate;
 
     @ManyToOne
-    @JoinColumn(name = "seller_Category")
-    private SellerCategory sellerCategory;
+    @JoinColumn(name = "category")
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "brand")
@@ -115,12 +115,12 @@ public class Product {
         this.rate = rate;
     }
 
-    public SellerCategory getSellerCategory() {
-        return sellerCategory;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setSellerCategory(SellerCategory sellerCategory) {
-        this.sellerCategory = sellerCategory;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Brand getBrand() {

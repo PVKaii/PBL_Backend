@@ -40,24 +40,24 @@ public class DbInitializer implements ApplicationRunner {
         if(categoryRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             categoryRepository.save(
                     new Category("Laptop",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
-            categoryRepository.save(
-                    new Category("Laptop theo thương hiệu",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
-            categoryRepository.save(
-                    new Category("Laptop theo cấu hình chip",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
-            categoryRepository.save(
-                    new Category("Laptop theo nhu cầu",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
-            categoryRepository.save(
-                    new Category("Laptop theo giá",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
+//            categoryRepository.save(
+//                    new Category("Laptop theo thương hiệu",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
+//            categoryRepository.save(
+//                    new Category("Laptop theo cấu hình chip",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
+//            categoryRepository.save(
+//                    new Category("Laptop theo nhu cầu",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
+//            categoryRepository.save(
+//                    new Category("Laptop theo giá",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
 
 
             categoryRepository.save(
                     new Category("PC",sellerCategoryRepository.findSellerCategoryByName("PC")));
-            categoryRepository.save(
-                    new Category("PC theo thương hiệu",sellerCategoryRepository.findSellerCategoryByName("PC")));
-            categoryRepository.save(
-                    new Category("PC theo nhu cầu",sellerCategoryRepository.findSellerCategoryByName("PC")));
-            categoryRepository.save(
-                    new Category("PC theo giá",sellerCategoryRepository.findSellerCategoryByName("PC")));
+//            categoryRepository.save(
+//                    new Category("PC theo thương hiệu",sellerCategoryRepository.findSellerCategoryByName("PC")));
+//            categoryRepository.save(
+//                    new Category("PC theo nhu cầu",sellerCategoryRepository.findSellerCategoryByName("PC")));
+//            categoryRepository.save(
+//                    new Category("PC theo giá",sellerCategoryRepository.findSellerCategoryByName("PC")));
 
             categoryRepository.save(
                     new Category("CPU",sellerCategoryRepository.findSellerCategoryByName("Linh kiện")));
@@ -105,12 +105,12 @@ public class DbInitializer implements ApplicationRunner {
             optionGroupRepository.save(
                     new OptionGroup(
                             "Nhu cầu tiêu dùng",
-                            categoryRepository.findCategoryByName("Laptop theo nhu cầu")));
+                            categoryRepository.findCategoryByName("Laptop")));
 
             optionGroupRepository.save(
                     new OptionGroup(
                             "Giá",
-                            categoryRepository.findCategoryByName("Laptop theo giá")));
+                            categoryRepository.findCategoryByName("Laptop")));
 
 
 
@@ -143,12 +143,12 @@ public class DbInitializer implements ApplicationRunner {
             optionGroupRepository.save(
                     new OptionGroup(
                             "Nhu cầu tiêu dùng",
-                            categoryRepository.findCategoryByName("PC theo nhu cầu")));
+                            categoryRepository.findCategoryByName("PC")));
 
             optionGroupRepository.save(
                     new OptionGroup(
                             "Giá",
-                            categoryRepository.findCategoryByName("PC theo giá")));
+                            categoryRepository.findCategoryByName("PC")));
 
 
             Map<String , String[]> map3 = new HashMap<>();
@@ -203,11 +203,11 @@ public class DbInitializer implements ApplicationRunner {
 
             String[] map1_6={"Văn Phòng","Gaming"};
             for (int i = 0; i < map1_6.length; i++) {
-                attributesRepository.save(new Attributes(map1_6[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Nhu cầu tiêu dùng","Laptop theo nhu cầu")));
+                attributesRepository.save(new Attributes(map1_6[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Nhu cầu tiêu dùng","Laptop")));
             }
             String[] map1_7={"dưới 1 triệu","1-5 triệu","trên 5 triệu"};
             for (int i = 0; i < map1_7.length; i++) {
-                attributesRepository.save(new Attributes(map1_7[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Giá","Laptop theo giá")));
+                attributesRepository.save(new Attributes(map1_7[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Giá","Laptop")));
             }
 
 
@@ -235,11 +235,11 @@ public class DbInitializer implements ApplicationRunner {
 
             String[] map2_6={"Văn Phòng","Gaming"};
             for (int i = 0; i < map2_6.length; i++) {
-                attributesRepository.save(new Attributes(map2_6[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Nhu cầu tiêu dùng","PC theo nhu cầu")));
+                attributesRepository.save(new Attributes(map2_6[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Nhu cầu tiêu dùng","PC")));
             }
             String[] map2_7={"dưới 1 triệu","1-5 triệu","trên 5 triệu"};
             for (int i = 0; i < map2_7.length; i++) {
-                attributesRepository.save(new Attributes(map2_7[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Giá","PC theo giá")));
+                attributesRepository.save(new Attributes(map2_7[i],optionGroupRepository.findOptionGroupByNameAndCategoryName("Giá","PC")));
             }
 
 

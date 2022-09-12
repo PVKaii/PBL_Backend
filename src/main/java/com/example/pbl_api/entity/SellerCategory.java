@@ -16,8 +16,7 @@ public class SellerCategory {
     @OneToMany(mappedBy = "sellerCategory")
     private Set<Category> categorySet;
 
-    @OneToMany(mappedBy = "sellerCategory")
-    private Set<Product> productSet;
+
 
     public SellerCategory(String name) {
         this.name = name;
@@ -51,11 +50,4 @@ public class SellerCategory {
         this.categorySet = categorySet;
     }
 
-    public Set<Product> getProductSet() {
-        return productSet;
-    }
-
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
-    }
 }

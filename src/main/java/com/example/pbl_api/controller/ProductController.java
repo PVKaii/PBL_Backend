@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -17,9 +20,18 @@ public class ProductController {
     ProductServiceImpl productService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllProducts(){
-        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+    public ResponseEntity<?> getProducts(@RequestParam(name = "category",required = false) Integer idCategory,@RequestParam(name = "filter",required = false) List<Integer> filters){
+        if(idCategory==null){
+            return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+        }
+        else if(idCategory!=null&&filters==null) {
+            return new ResponseEntity<>(productService.getProductsByCategory(idCategory), HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(productService.getProductsByFilter(filters), HttpStatus.OK);
+        }
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<?> addProducts(@RequestBody Product product){
@@ -39,7 +51,7 @@ public class ProductController {
             productEdit.setStatus(product.getStatus());
             productEdit.setPopular(product.getPopular());
             productEdit.setRate(product.getRate());
-            productEdit.setSellerCategory(product.getSellerCategory());
+            productEdit.setCategory(product.getCategory());
             ProductModel result = productService.saveProduct(productEdit);
             System.out.println("rs");
             return  new ResponseEntity<>(result,HttpStatus.OK);

@@ -15,7 +15,7 @@ public class ProductModel {
     private long popular;
     private double rate;
     private String brand;
-    private String sellerCategory;
+    private String Category;
     private List<String> attributes;
 
     public ProductModel(Product product) {
@@ -26,7 +26,7 @@ public class ProductModel {
         this.status=product.getStatus();
         this.popular=product.getPopular();
         this.rate=product.getRate();
-        this.sellerCategory=product.getSellerCategory().getName();
+        this.Category=product.getCategory().getName();
         this.description=product.getDescription();
         this.attributes=product.getAttributesSet().stream().map(attributes1 -> attributes1.getName()).toList();
     }
@@ -87,12 +87,12 @@ public class ProductModel {
         this.brand = brand;
     }
 
-    public String getSellerCategory() {
-        return sellerCategory;
+    public String getCategory() {
+        return Category;
     }
 
-    public void setSellerCategory(String sellerCategory) {
-        this.sellerCategory = sellerCategory;
+    public void setCategory(String category) {
+        Category = category;
     }
 
     public List<String> getAttributes() {

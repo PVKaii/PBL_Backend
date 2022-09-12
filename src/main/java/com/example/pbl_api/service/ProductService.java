@@ -10,7 +10,7 @@ public interface ProductService {
 
     List<ProductModel> getProductsByCategory(int idCategory);
 
-    List<ProductModel> getProductsByFilter();
+    List<ProductModel> getProductsByFilter(List<Integer> filters );
 
     ProductModel findProductModelById(long id);
 

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepository extends CrudRepository<Category,Integer> {
     Category findCategoryByName(String name);
 
+    Category findCategoryById(int id);
 }

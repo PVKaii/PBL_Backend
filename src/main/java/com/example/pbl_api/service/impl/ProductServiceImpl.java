@@ -2,6 +2,7 @@ package com.example.pbl_api.service.impl;
 
 import com.example.pbl_api.entity.Product;
 import com.example.pbl_api.model.ProductModel;
+import com.example.pbl_api.repository.CategoryRepository;
 import com.example.pbl_api.repository.ProductRepository;
 import com.example.pbl_api.repository.SellerCategoryRepository;
 import com.example.pbl_api.service.ProductService;
@@ -18,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
 
     @Autowired
-    SellerCategoryRepository sellerCategoryRepository;
+    CategoryRepository categoryRepository;
 
     @Override
     public List<ProductModel> getAllProducts() {
@@ -35,14 +36,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductModel> getProductsByCategory(int idCategory) {
-        return null;
+        List<ProductModel> productModels=productRepository.findProductsByCategoryId(idCategory)
+                .stream().map(product -> new ProductModel(product)).toList();
+        return productModels;
     }
 
     @Override
-    public List<ProductModel> getProductsByFilter() {
-        return null;
+    public List<ProductModel> getProductsByFilter(List<Integer> filters) {
+        int sizeFilter=filters.size();
+        for (int i = 0; i < 6-sizeFilter; i++) {
+            filters.add(null);
+        }
+        List<ProductModel> productModels=productRepository.findProductsByFillter(
+                filters.get(0),filters.get(1),filters.get(2))
+                .stream().map(product -> new ProductModel(product)).toList();
+        return productModels;
     }
-
     @Override
     public ProductModel findProductModelById(long id) {
         return new ProductModel(productRepository.findProductById(id));
@@ -55,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductModel saveProduct(Product product) {
-        product.setSellerCategory(sellerCategoryRepository.findSellerCategoryById(product.getSellerCategory().getId()));
+        product.setCategory(categoryRepository.findCategoryById(product.getCategory().getId()));
         Product productRs= productRepository.save(product);
         return new ProductModel(productRs);
     }
