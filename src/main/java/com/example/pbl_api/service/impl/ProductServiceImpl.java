@@ -36,19 +36,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductModel> getProductsByCategory(int idCategory) {
+        System.out.println("s2");
         List<ProductModel> productModels=productRepository.findProductsByCategoryId(idCategory)
                 .stream().map(product -> new ProductModel(product)).toList();
         return productModels;
     }
 
     @Override
-    public List<ProductModel> getProductsByFilter(List<Integer> filters) {
+    public List<ProductModel> getProductsByFilter(int idCatgory,List<Integer> filters) {
         int sizeFilter=filters.size();
-        for (int i = 0; i < 6-sizeFilter; i++) {
+        for (int i = 0; i < 5-sizeFilter; i++) {
             filters.add(null);
         }
-        List<ProductModel> productModels=productRepository.findProductsByFillter(
-                filters.get(0),filters.get(1),filters.get(2))
+        List<ProductModel> productModels=productRepository.findProductsByFilter(
+                idCatgory,
+                filters.get(0),filters.get(1),filters.get(2),filters.get(3),filters.get(4))
                 .stream().map(product -> new ProductModel(product)).toList();
         return productModels;
     }
@@ -63,10 +65,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductModel saveProduct(Product product) {
-        product.setCategory(categoryRepository.findCategoryById(product.getCategory().getId()));
-        Product productRs= productRepository.save(product);
+    public ProductModel saveProduct(ProductModel product) {
+        Product productRs= productRepository.save(new Product(
+                product,categoryRepository.findCategoryById(product.getCategory().getId())));
         return new ProductModel(productRs);
+    }
+
+    @Override
+    public ProductModel updateProduct(long id, ProductModel product) {
+        Product productEdit = productRepository.findProductById(id);
+        if(productEdit==null) throw new RuntimeException();
+        else{
+//            productEdit.setName(product.getName());
+//            productEdit.setInformation(product.getInformation());
+//            productEdit.setPrice(product.getPrice());
+//            productEdit.setDescription(product.getDescription());
+//            productEdit.setStatus(product.getStatus());
+//            productEdit.setPopular(product.getPopular());
+//            productEdit.setRate(product.getRate());
+            productEdit.setProduct(product);
+            Product result = productRepository.save(productEdit);
+            return new ProductModel(result);
+        }
     }
 
     @Override

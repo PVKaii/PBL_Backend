@@ -4,9 +4,13 @@ import com.example.pbl_api.entity.Category;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CategoryRepository extends CrudRepository<Category,Integer> {
     Category findCategoryByName(String name);
 
     Category findCategoryById(int id);
+
+    List<Category> findCategoryBySellerCategoryId(int id);
 }

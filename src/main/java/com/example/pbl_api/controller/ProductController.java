@@ -21,6 +21,7 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getProducts(@RequestParam(name = "category",required = false) Integer idCategory,@RequestParam(name = "filter",required = false) List<Integer> filters){
+        System.out.println(filters);
         if(idCategory==null){
             return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
         }
@@ -28,39 +29,26 @@ public class ProductController {
             return new ResponseEntity<>(productService.getProductsByCategory(idCategory), HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>(productService.getProductsByFilter(filters), HttpStatus.OK);
+            return new ResponseEntity<>(productService.getProductsByFilter(idCategory,filters), HttpStatus.OK);
         }
     }
 
 
     @PostMapping("/add")
-    public ResponseEntity<?> addProducts(@RequestBody Product product){
+    public ResponseEntity<?> addProducts(@RequestBody ProductModel product){
        ProductModel result= productService.saveProduct(product);
         return  new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> editProducts(@RequestBody Product product,@PathVariable(name = "id") long id){
-        Product productEdit= productService.findProductById(id);
-        if(productEdit==null) throw new RuntimeException();
-        else {
-            productEdit.setName(product.getName());
-            productEdit.setInformation(product.getInformation());
-            productEdit.setPrice(product.getPrice());
-            productEdit.setDescription(product.getDescription());
-            productEdit.setStatus(product.getStatus());
-            productEdit.setPopular(product.getPopular());
-            productEdit.setRate(product.getRate());
-            productEdit.setCategory(product.getCategory());
-            ProductModel result = productService.saveProduct(productEdit);
-            System.out.println("rs");
-            return  new ResponseEntity<>(result,HttpStatus.OK);
-        }
+    public ResponseEntity<?> editProducts(@RequestBody ProductModel product,@PathVariable(name = "id") long id){
+        ProductModel result= productService.updateProduct(id,product);
+        return  new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteProducts(@PathVariable(name = "id") long id){
-        Product productDelete= productService.findProductById(id);
+        ProductModel productDelete= productService.findProductModelById(id);
         if(productDelete==null) throw new RuntimeException();
         else {
             ProductModel result= productService.deleteProduct(productDelete.getId());

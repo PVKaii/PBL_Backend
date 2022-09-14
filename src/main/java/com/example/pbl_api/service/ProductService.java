@@ -10,15 +10,19 @@ public interface ProductService {
 
     List<ProductModel> getProductsByCategory(int idCategory);
 
-    List<ProductModel> getProductsByFilter(List<Integer> filters );
+    List<ProductModel> getProductsByFilter(int id,List<Integer> filters );
 
     ProductModel findProductModelById(long id);
 
     Product findProductById(long id);
 
-    ProductModel saveProduct(Product product);
+    ProductModel saveProduct(ProductModel product);
+
+    ProductModel updateProduct(long id,ProductModel product);
 
     ProductModel deleteProduct(long id);
+
+
 
 
 }

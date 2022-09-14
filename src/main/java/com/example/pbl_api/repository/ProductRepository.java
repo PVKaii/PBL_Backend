@@ -21,8 +21,11 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
             " join attributes on product_attributes.attributes_id=attributes.id\n" +
             " where product.category=?1 " +
             "and (attributes.id =?2 or ?2 is null)" +
-            "and (attributes.id =?3 or ?3 is null)",
+            "and (attributes.id =?3 or ?3 is null)" +
+            "and (attributes.id =?4 or ?4 is null)" +
+            "and (attributes.id =?5 or ?5 is null)" +
+            "and (attributes.id =?6 or ?6 is null)",
             nativeQuery = true)
-    List<Product> findProductsByFillter(Integer idCategory,Integer f1,Integer f2);
+    List<Product> findProductsByFilter(Integer idCategory,Integer f1,Integer f2,Integer f3,Integer f4,Integer f5);
 
 }

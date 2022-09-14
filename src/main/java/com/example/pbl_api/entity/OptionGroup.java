@@ -40,4 +40,24 @@ public class OptionGroup {
     public Category getCategory() {
         return category;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Set<Attributes> getAttributesSet() {
+        return attributesSet;
+    }
+
+    public void setAttributesSet(Set<Attributes> attributesSet) {
+        this.attributesSet = attributesSet;
+    }
 }

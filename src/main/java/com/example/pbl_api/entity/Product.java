@@ -1,5 +1,7 @@
 package com.example.pbl_api.entity;
 
+import com.example.pbl_api.model.ProductModel;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -57,6 +59,30 @@ public class Product {
 
     public Product() {
 
+    }
+
+    public Product(ProductModel product,Category category) {
+        this.name = product.getName();
+        this.information = product.getInformation();
+        this.price = product.getPrice();
+        this.status = product.getStatus();
+        this.description = product.getDescription();
+        this.popular = product.getPopular();
+        this.rate = product.getRate();
+        this.category = category;
+//        this.brand = brand;
+//        this.warranty = warranty;
+//        this.attributesSet = attributesSet;
+    }
+
+    public void setProduct(ProductModel product){
+        this.name = product.getName();
+        this.information = product.getInformation();
+        this.price = product.getPrice();
+        this.status = product.getStatus();
+        this.description = product.getDescription();
+        this.popular = product.getPopular();
+        this.rate = product.getRate();
     }
 
     public long getId() {
