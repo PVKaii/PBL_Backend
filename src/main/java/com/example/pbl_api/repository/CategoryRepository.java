@@ -12,5 +12,4 @@ public interface CategoryRepository extends CrudRepository<Category,Integer> {
 
     Category findCategoryById(int id);
 
-    List<Category> findCategoryBySellerCategoryId(int id);
 }

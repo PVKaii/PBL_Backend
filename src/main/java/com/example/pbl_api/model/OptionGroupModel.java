@@ -23,7 +23,7 @@ public class OptionGroupModel implements Serializable {
     public OptionGroupModel(OptionGroup optionGroup, Set<Attributes> attributes) {
         this.id = optionGroup.getId();
         this.name = optionGroup.getName();
-        this.category = new CategoryModel(optionGroup.getCategory());
+//        this.category = new CategoryModel(optionGroup.getCategory());
         this.attributes = attributes.stream().map(attributes1 -> new AttributesModel(attributes1)).toList();
     }
 

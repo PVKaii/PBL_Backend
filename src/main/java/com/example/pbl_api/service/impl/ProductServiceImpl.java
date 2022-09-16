@@ -4,12 +4,10 @@ import com.example.pbl_api.entity.Product;
 import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.repository.CategoryRepository;
 import com.example.pbl_api.repository.ProductRepository;
-import com.example.pbl_api.repository.SellerCategoryRepository;
 import com.example.pbl_api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

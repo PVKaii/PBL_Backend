@@ -13,9 +13,7 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_category_id",nullable = false)
-    private SellerCategory sellerCategory;
+
 
     @OneToMany(mappedBy = "category")
     private Set<OptionGroup> optionGroupSet;
@@ -26,9 +24,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, SellerCategory sellerCategory) {
+    public Category(String name) {
         this.name = name;
-        this.sellerCategory = sellerCategory;
     }
 
     public int getId() {
@@ -47,13 +44,6 @@ public class Category {
         this.name = name;
     }
 
-    public SellerCategory getSellerCategory() {
-        return sellerCategory;
-    }
-
-    public void setSellerCategory(SellerCategory sellerCategory) {
-        this.sellerCategory = sellerCategory;
-    }
 
     public Set<OptionGroup> getOptionGroupSet() {
         return optionGroupSet;

@@ -18,7 +18,7 @@ public class CategoryController {
 
     @GetMapping("/")
     public ResponseEntity<?> getAllCategories(){
-        return new ResponseEntity<>(categoryService.getAllSellercategories(), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")
@@ -26,22 +26,6 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getOpionGroupsByCategory(id), HttpStatus.OK);
     }
 
-
-
-
-
-
-
-
-    @GetMapping("/seller")
-    public ResponseEntity<?> getAllSellerCategories(){
-        return new ResponseEntity<>(categoryService.getAllSellercategories(), HttpStatus.OK);
-    }
-
-    @GetMapping("/seller/{id}")
-    public ResponseEntity<?> getAllCategoriesBySellerCategory(@PathVariable(name = "id")int id){
-        return new ResponseEntity<>(categoryService.getCategoriesBySellerCategory(id), HttpStatus.OK);
-    }
 
     @GetMapping("/group/{id}")
     public ResponseEntity<?> getAttributesByGroup(@PathVariable(name = "id")int id){

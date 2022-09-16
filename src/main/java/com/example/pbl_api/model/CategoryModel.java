@@ -1,24 +1,38 @@
 package com.example.pbl_api.model;
 
 import com.example.pbl_api.entity.Category;
+import com.example.pbl_api.entity.OptionGroup;
+
+import java.util.List;
+import java.util.Set;
 
 public class CategoryModel {
     private int id;
     private String name;
-    private SellerCategoryModel sellerCategory;
+
+    private List<OptionGroupModel> optionGroup;
 
     public CategoryModel(Category category) {
         this.id = category.getId();
         this.name = category.getName();
-        this.sellerCategory = new SellerCategoryModel(category.getSellerCategory());
     }
 
-    public CategoryModel(int id, String name) {
+    public CategoryModel(int id, String name, Set<OptionGroup> optionGroupSet) {
         this.id = id;
         this.name = name;
+        this.optionGroup=optionGroupSet.stream().map(optionGroup1 -> new OptionGroupModel(optionGroup1,optionGroup1.getAttributesSet())).toList();
+
     }
 
     public CategoryModel() {
+    }
+
+    public List<OptionGroupModel> getOptionGroup() {
+        return optionGroup;
+    }
+
+    public void setOptionGroup(List<OptionGroupModel> optionGroup) {
+        this.optionGroup = optionGroup;
     }
 
     public int getId() {
@@ -37,11 +51,5 @@ public class CategoryModel {
         this.name = name;
     }
 
-    public SellerCategoryModel getSellerCategory() {
-        return sellerCategory;
-    }
 
-    public void setSellerCategory(SellerCategoryModel sellerCategory) {
-        this.sellerCategory = sellerCategory;
-    }
 }

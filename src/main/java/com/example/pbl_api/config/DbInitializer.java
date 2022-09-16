@@ -15,8 +15,6 @@ public class DbInitializer implements ApplicationRunner {
     @Autowired
     BrandRepository brandRepository;
 
-    @Autowired
-    SellerCategoryRepository sellerCategoryRepository;
 
     @Autowired
     CategoryRepository categoryRepository;
@@ -29,17 +27,11 @@ public class DbInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if(sellerCategoryRepository.findAll().spliterator().getExactSizeIfKnown()==0){
-            sellerCategoryRepository.save(new SellerCategory("Laptop"));
-            sellerCategoryRepository.save(new SellerCategory("PC"));
-            sellerCategoryRepository.save(new SellerCategory("Linh kiện"));
-            sellerCategoryRepository.save(new SellerCategory("Phụ kiện"));
-        }
 
 
         if(categoryRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             categoryRepository.save(
-                    new Category("Laptop",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
+                    new Category("Laptop"));
 //            categoryRepository.save(
 //                    new Category("Laptop theo thương hiệu",sellerCategoryRepository.findSellerCategoryByName("Laptop")));
 //            categoryRepository.save(
@@ -51,7 +43,7 @@ public class DbInitializer implements ApplicationRunner {
 
 
             categoryRepository.save(
-                    new Category("PC",sellerCategoryRepository.findSellerCategoryByName("PC")));
+                    new Category("PC"));
 //            categoryRepository.save(
 //                    new Category("PC theo thương hiệu",sellerCategoryRepository.findSellerCategoryByName("PC")));
 //            categoryRepository.save(
@@ -60,23 +52,23 @@ public class DbInitializer implements ApplicationRunner {
 //                    new Category("PC theo giá",sellerCategoryRepository.findSellerCategoryByName("PC")));
 
             categoryRepository.save(
-                    new Category("CPU",sellerCategoryRepository.findSellerCategoryByName("Linh kiện")));
+                    new Category("CPU"));
             categoryRepository.save(
-                    new Category("Ổ cứng",sellerCategoryRepository.findSellerCategoryByName("Linh kiện")));
+                    new Category("Ổ cứng"));
             categoryRepository.save(
-                    new Category("VGA",sellerCategoryRepository.findSellerCategoryByName("Linh kiện")));
+                    new Category("VGA"));
             categoryRepository.save(
-                    new Category("Ram",sellerCategoryRepository.findSellerCategoryByName("Linh kiện")));
+                    new Category("Ram"));
             categoryRepository.save(
-                    new Category("Mainboard",sellerCategoryRepository.findSellerCategoryByName("Linh kiện")));
+                    new Category("Mainboard"));
 
 
             categoryRepository.save(
-                    new Category("Phụ kiện",sellerCategoryRepository.findSellerCategoryByName("Phụ kiện")));
+                    new Category("Phụ kiện"));
             categoryRepository.save(
-                    new Category("Bàn phím",sellerCategoryRepository.findSellerCategoryByName("Phụ kiện")));
+                    new Category("Bàn phím"));
             categoryRepository.save(
-                    new Category("Chuột",sellerCategoryRepository.findSellerCategoryByName("Phụ kiện")));
+                    new Category("Chuột"));
 
         }
 
