@@ -1,73 +1,36 @@
 package com.example.pbl_api.entity;
 
+
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	 private static final long serialVersionUID = 1L;
+    @Column(name = "name")
+    private String name;
 
-	    @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "id", nullable = false)
-	    private Long id;
+    @Column(name = "dateofbirth")
+    private Date dateOfBirth;
 
-	    @Column(name = "username", nullable = false, unique = true)
-	    private String username;
+    @Column(name = "address")
+    private String address;
 
-	    @Column(name = "password", nullable = false)
-	    private String password;
+    @Column(name = "phonenumber")
+    private String phoneNumber;
 
-		@OneToOne(cascade = CascadeType.ALL)
-		@JoinColumn(name = "user_detail_id",referencedColumnName = "id")
-		private UserDetail userDetail;
+    @Column(name = "gender")
+    private Boolean gender;
 
-		@OneToMany(mappedBy = "user")
-		private Set<Bill> bills;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_account_id",referencedColumnName = "id")
+    private UserAccount userAccount;
 
-	    @ManyToMany(fetch = FetchType.EAGER)
-	    @JoinTable(
-	            name = "user_role",
-	            joinColumns = @JoinColumn(name = "user_id"),
-	            inverseJoinColumns = @JoinColumn(name = "role_id")
-	    )
-	    private Set<Role> roles;
-
-	    public Long getId() {
-	        return id;
-	    }
-
-	    public void setId(Long id) {
-	        this.id = id;
-	    }
-
-	    public String getUsername() {
-	        return username;
-	    }
-
-	    public void setUsername(String username) {
-	        this.username = username;
-	    }
-
-	    public String getPassword() {
-	        return password;
-	    }
-
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
-
-	    public Set<Role> getRoles() {
-	        return roles;
-	    }
-
-	    public void setRoles(Set<Role> roles) {
-	        this.roles = roles;
-	    }
-
-
-
+    public String getName() {
+        return name;
+    }
 }

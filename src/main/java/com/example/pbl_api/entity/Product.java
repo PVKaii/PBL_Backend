@@ -55,7 +55,7 @@ public class Product {
     )
     private Set<Attributes> attributesSet;
 
-    @OneToMany(mappedBy = "bill")
+    @OneToMany(mappedBy = "product")
     private Set<BillDetail> billDetailSet;
 
 
