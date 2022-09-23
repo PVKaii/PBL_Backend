@@ -28,7 +28,7 @@ public class ProductModel {
         this.rate=product.getRate();
         this.Category=new CategoryModel(product.getCategory());
         this.description=product.getDescription();
-        this.attributes=product.getAttributesSet().stream().map(attributes1 -> new AttributesModel(attributes1)).toList();
+        if(product.getAttributesSet()!=null) this.attributes=product.getAttributesSet().stream().map(attributes1 -> new AttributesModel(attributes1)).toList();
     }
 
     public ProductModel() {

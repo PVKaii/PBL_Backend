@@ -5,8 +5,11 @@ import com.example.pbl_api.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +28,63 @@ public class DbInitializer implements ApplicationRunner {
     @Autowired
     AttributesRepository attributesRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+
+        if(roleRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+            roleRepository.save(new Role("ROLE_ADMIN"));
+            roleRepository.save(new Role("ROLE_MEMBER"));
+        }
+
+
+        if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+            userRepository.save(
+                    new User(
+                            "PVK",
+                            null,
+                            "DN",
+                            "123456789",
+                            true,
+                            new UserAccount("admin@gmail.com",
+                                    encoder.encode("123456"),
+                            new ArrayList<>(){
+                                {
+                                    add(new Role(1));
+                                    add(new Role(2));
+                                }
+                            }
+                            )
+                    )
+            );
+
+            userRepository.save(
+                    new User(
+                            "PVK2",
+                            null,
+                            "DN",
+                            "123456789",
+                            true,
+                            new UserAccount("member@gmail.com",
+                                    "$2a$10$.amUH9PJ311zU8tHHdqYoOFp9dZm0suVxxIiGVwSi.ky9OeVvRpdK",
+                                    new ArrayList<>(){
+                                        {
+                                            add(new Role(1));
+                                        }
+                                    }
+                            )
+                    )
+            );
+        }
 
         if(categoryRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             categoryRepository.save(

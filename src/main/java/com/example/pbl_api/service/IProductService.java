@@ -5,7 +5,7 @@ import com.example.pbl_api.model.ProductModel;
 
 import java.util.List;
 
-public interface ProductService {
+public interface IProductService {
     List<ProductModel> getAllProducts();
 
     List<ProductModel> getProductsByCategory(int idCategory);

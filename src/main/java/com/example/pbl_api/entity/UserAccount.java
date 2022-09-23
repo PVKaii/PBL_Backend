@@ -1,7 +1,11 @@
 package com.example.pbl_api.entity;
 
+import com.example.pbl_api.model.UserAccountModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,8 +28,6 @@ public class UserAccount implements Serializable {
 		@OneToOne(mappedBy = "userAccount")
 		private User user;
 
-		@OneToMany(mappedBy = "user")
-		private Set<Bill> bills;
 
 	    @ManyToMany(fetch = FetchType.EAGER)
 	    @JoinTable(
@@ -35,7 +37,26 @@ public class UserAccount implements Serializable {
 	    )
 	    private Set<Role> roles;
 
-	    public Long getId() {
+
+	public UserAccount(String username, String password, List<Role> roles) {
+		this.username = username;
+		this.password = password;
+		this.roles= new HashSet<>(roles);
+	}
+
+	public UserAccount() {
+
+	}
+
+	public void editAccount(UserAccountModel userAccountModel){
+		this.username = userAccountModel.getUsername();
+		this.password = userAccountModel.getPassword();
+//		this.roles= new HashSet<>(roles);
+	}
+
+
+
+	public Long getId() {
 	        return id;
 	    }
 

@@ -37,4 +37,6 @@ public class BillDetailModel {
     public void setProduct(ProductModel product) {
         this.product = product;
     }
+
+
 }

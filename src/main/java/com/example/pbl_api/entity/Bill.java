@@ -1,7 +1,11 @@
 package com.example.pbl_api.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,7 +21,11 @@ public class Bill {
     private double total;
 
     @Column(name = "day")
-    private Date day;
+    @DateTimeFormat(pattern="dd-MM-yyyy")
+    private LocalDate day;
+
+    @Column(name = "type")
+    private boolean type;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -26,16 +34,24 @@ public class Bill {
     @OneToMany(mappedBy = "bill",cascade = CascadeType.REMOVE)
     private Set<BillDetail> billDetailSet;
 
-    public Bill(double total, Date day, User user) {
+    public Bill(double total, LocalDate day, User user,boolean type) {
         this.total = total;
         this.day = day;
         this.user = user;
+        this.type=type;
     }
 
     public Bill() {
 
     }
 
+    public boolean isType() {
+        return type;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
 
     public long getId() {
         return id;
@@ -53,11 +69,11 @@ public class Bill {
         this.total = total;
     }
 
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 

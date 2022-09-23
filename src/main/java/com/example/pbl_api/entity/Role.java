@@ -23,6 +23,11 @@ public class Role implements Serializable {
     public Role() {
     }
 
+    public Role(int id) {
+        System.out.println("id "+id);
+        this.id = id;
+    }
+
     public Role(String name) {
         this.name = name;
     }

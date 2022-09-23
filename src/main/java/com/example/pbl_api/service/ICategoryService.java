@@ -6,7 +6,7 @@ import com.example.pbl_api.model.OptionGroupModel;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface ICategoryService {
 
      List<CategoryModel>  getAllCategories();
 

@@ -1,15 +1,13 @@
 package com.example.pbl_api.controller;
 
 
-import com.example.pbl_api.entity.Product;
 import com.example.pbl_api.model.ProductModel;
-import com.example.pbl_api.service.impl.ProductServiceImpl;
+import com.example.pbl_api.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,7 +15,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductServiceImpl productService;
+    ProductService productService;
 
     @GetMapping("")
     public ResponseEntity<?> getProducts(@RequestParam(name = "category",required = false) Integer idCategory,@RequestParam(name = "filter",required = false) List<Integer> filters){

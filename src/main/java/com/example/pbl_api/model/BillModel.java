@@ -2,7 +2,9 @@ package com.example.pbl_api.model;
 
 import com.example.pbl_api.entity.Bill;
 import com.example.pbl_api.entity.BillDetail;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +13,12 @@ public class BillModel {
 
     private double total;
 
-    private Date day;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate day;
 
     private UserModel user;
+
+    private boolean type;
 
     private List<BillDetailModel> billDetails;
 
@@ -24,12 +29,19 @@ public class BillModel {
         this.id = bill.getId();
         this.total = bill.getTotal();
         this.day = bill.getDay();
+        this.type=bill.isType();
         this.user = new UserModel(bill.getUser());
         this.billDetails=bill.getBillDetailSet().stream()
                 .map(billDetail -> new BillDetailModel(billDetail)).toList();
     }
 
+    public boolean isType() {
+        return type;
+    }
 
+    public void setType(boolean type) {
+        this.type = type;
+    }
 
     public List<BillDetailModel> getBillDetails() {
         return billDetails;
@@ -55,11 +67,11 @@ public class BillModel {
         this.total = total;
     }
 
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 

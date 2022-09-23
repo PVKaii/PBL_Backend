@@ -1,7 +1,7 @@
 package com.example.pbl_api.controller;
 
 
-import com.example.pbl_api.service.impl.CategoryServiceImpl;
+import com.example.pbl_api.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("")
 public class CategoryController {
     @Autowired
-    CategoryServiceImpl categoryService;
+    CategoryService categoryService;
 
     @GetMapping("/")
     public ResponseEntity<?> getAllCategories(){

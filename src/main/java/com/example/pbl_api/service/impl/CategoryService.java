@@ -7,7 +7,7 @@ import com.example.pbl_api.model.OptionGroupModel;
 import com.example.pbl_api.repository.AttributesRepository;
 import com.example.pbl_api.repository.CategoryRepository;
 import com.example.pbl_api.repository.OptionGroupRepository;
-import com.example.pbl_api.service.CategoryService;
+import com.example.pbl_api.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryService implements ICategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;

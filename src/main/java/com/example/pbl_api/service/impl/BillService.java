@@ -10,19 +10,18 @@ import com.example.pbl_api.repository.BillDetailRepository;
 import com.example.pbl_api.repository.BillRepository;
 import com.example.pbl_api.repository.ProductRepository;
 import com.example.pbl_api.repository.UserRepository;
-import com.example.pbl_api.service.BillService;
+import com.example.pbl_api.service.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
 
 @Service
-public class BillServiceImpl implements BillService {
+public class BillService implements IBillService {
 
 
     @Autowired
@@ -50,9 +49,9 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public BillModel saveBill(List<ProductModel> productList,int idUser,double total) {
+    public BillModel saveBill(List<ProductModel> productList,int idUser,double total,boolean type) {
         User user =userRepository.findUserById(idUser);
-        Bill bill= new Bill(total, null,user);
+        Bill bill= new Bill(total, LocalDate.now(),user,type);
         List<BillDetail> billDetailList= new ArrayList<>();
         for (ProductModel productModel:
              productList) {
