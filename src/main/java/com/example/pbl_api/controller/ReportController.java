@@ -23,7 +23,7 @@ public class ReportController {
     ReportService reportService;
 
 
-    @GetMapping("")
+    @GetMapping("product")
     public ResponseEntity<?> getSoldCategoryReportByDay(@RequestParam(name = "start") String startDay,@RequestParam(name = "end") String endDay){
         ReportModel reportModel= reportService.getSoldCategoryReportByDay(startDay,endDay);
         return new ResponseEntity<>(reportModel, HttpStatus.OK);
