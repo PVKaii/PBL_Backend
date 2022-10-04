@@ -47,44 +47,44 @@ public class DbInitializer implements ApplicationRunner {
         }
 
 
-        if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
-            userRepository.save(
-                    new User(
-                            "PVK",
-                            null,
-                            "DN",
-                            "123456789",
-                            true,
-                            new UserAccount("admin@gmail.com",
-                                    encoder.encode("123456"),
-                            new ArrayList<>(){
-                                {
-                                    add(new Role(1));
-                                    add(new Role(2));
-                                }
-                            }
-                            )
-                    )
-            );
-
-            userRepository.save(
-                    new User(
-                            "PVK2",
-                            null,
-                            "DN",
-                            "123456789",
-                            true,
-                            new UserAccount("member@gmail.com",
-                                    "$2a$10$.amUH9PJ311zU8tHHdqYoOFp9dZm0suVxxIiGVwSi.ky9OeVvRpdK",
-                                    new ArrayList<>(){
-                                        {
-                                            add(new Role(1));
-                                        }
-                                    }
-                            )
-                    )
-            );
-        }
+//        if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+//            userRepository.save(
+//                    new User(
+//                            "PVK",
+//                            null,
+//                            "DN",
+//                            "123456789",
+//                            true,
+//                            new UserAccount("admin@gmail.com",
+//                                    encoder.encode("123456"),
+//                            new ArrayList<>(){
+//                                {
+//                                    add(new Role(1));
+//                                    add(new Role(2));
+//                                }
+//                            }
+//                            )
+//                    )
+//            );
+//
+//            userRepository.save(
+//                    new User(
+//                            "PVK2",
+//                            null,
+//                            "DN",
+//                            "123456789",
+//                            true,
+//                            new UserAccount("member@gmail.com",
+//                                    "$2a$10$.amUH9PJ311zU8tHHdqYoOFp9dZm0suVxxIiGVwSi.ky9OeVvRpdK",
+//                                    new ArrayList<>(){
+//                                        {
+//                                            add(new Role(1));
+//                                        }
+//                                    }
+//                            )
+//                    )
+//            );
+//        }
 
         if(categoryRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             categoryRepository.save(
