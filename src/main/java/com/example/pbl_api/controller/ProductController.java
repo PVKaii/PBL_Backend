@@ -4,6 +4,7 @@ package com.example.pbl_api.controller;
 import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

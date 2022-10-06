@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface OptionGroupRepository extends CrudRepository<OptionGroup,Integer> {
     OptionGroup findOptionGroupByNameAndCategoryName(String name1,String name2);
 

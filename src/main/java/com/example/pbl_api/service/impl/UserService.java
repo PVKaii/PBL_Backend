@@ -8,6 +8,7 @@ import com.example.pbl_api.repository.UserAccountRepository;
 import com.example.pbl_api.repository.UserRepository;
 import com.example.pbl_api.service.IUserSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;

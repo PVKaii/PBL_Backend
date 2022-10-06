@@ -4,6 +4,5 @@ import com.example.pbl_api.entity.Warranty;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public interface WarrantyRepository extends CrudRepository<Warranty,Integer> {
 }

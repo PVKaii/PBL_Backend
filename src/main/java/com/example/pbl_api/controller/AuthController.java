@@ -2,7 +2,6 @@ package com.example.pbl_api.controller;
 
 
 import com.example.pbl_api.model.JwtResponse;
-import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.model.UserAccountModel;
 import com.example.pbl_api.model.UserModel;
 import com.example.pbl_api.service.impl.JwtService;
@@ -10,6 +9,7 @@ import com.example.pbl_api.service.impl.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +20,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

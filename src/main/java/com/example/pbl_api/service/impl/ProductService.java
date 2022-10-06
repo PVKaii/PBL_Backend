@@ -6,6 +6,7 @@ import com.example.pbl_api.repository.CategoryRepository;
 import com.example.pbl_api.repository.ProductRepository;
 import com.example.pbl_api.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

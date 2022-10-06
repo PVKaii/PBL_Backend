@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
-@Repository
+
 public interface ReportRepository extends CrudRepository<Category,Integer> {
 
     @Query(value = "select id,name,count(bill_result.product_id) as count\n" +

@@ -12,6 +12,7 @@ import com.example.pbl_api.repository.ProductRepository;
 import com.example.pbl_api.repository.UserRepository;
 import com.example.pbl_api.service.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +39,7 @@ public class DbInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        System.out.println("123");
 
         if(roleRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             roleRepository.save(new Role("ROLE_ADMIN"));
