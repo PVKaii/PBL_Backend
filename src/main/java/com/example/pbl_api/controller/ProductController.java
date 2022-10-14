@@ -47,6 +47,7 @@ public class ProductController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteProducts(@PathVariable(name = "id") long id){
+        System.out.println("delete");
         ProductModel productDelete= productService.findProductModelById(id);
         if(productDelete==null) throw new RuntimeException();
         else {

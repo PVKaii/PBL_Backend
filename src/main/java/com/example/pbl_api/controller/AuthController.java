@@ -47,7 +47,6 @@ public class AuthController {
                         userAccount.getPassword()
                 )
         );
-        System.out.println("hể");
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt=jwtService.generateTokenLogin(authentication);
         UserDetails userDetails=(UserDetails) authentication.getPrincipal();

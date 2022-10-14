@@ -20,9 +20,29 @@ public class ReportController {
     ReportService reportService;
 
 
-    @GetMapping("product")
-    public ResponseEntity<?> getSoldCategoryReportByDay(@RequestParam(name = "start") String startDay,@RequestParam(name = "end") String endDay){
-        ReportModel reportModel= reportService.getSoldCategoryReportByDay(startDay,endDay);
-        return new ResponseEntity<>(reportModel, HttpStatus.OK);
+
+    @GetMapping("")
+    public ResponseEntity<?> getDayReport(@RequestParam(name = "start",required = false) String startDay,@RequestParam(name = "end",required = false) String endDay
+    ,@RequestParam(name = "year",required = false) String year,@RequestParam(name = "product",required = false) String product
+    ) throws Exception {
+        if(year==null) year="";
+        if(year.equals("true") &&startDay==null&&endDay==null&&product==null){
+            ReportModel reportModel= reportService.getMonthReport();
+            return new ResponseEntity<>(reportModel, HttpStatus.OK);
+        }
+        else{
+            if(startDay!=null&&endDay!=null){
+                if(product==null) product="";
+                if(product.equals("true")){
+                    ReportModel reportModel= reportService.getSoldCategoryReportByDay(startDay,endDay);
+                    return new ResponseEntity<>(reportModel, HttpStatus.OK);
+                }
+                else{
+                    ReportModel reportModel= reportService.getDayReport(startDay,endDay);
+                    return new ResponseEntity<>(reportModel, HttpStatus.OK);
+                }
+            }
+        }
+        throw new Exception();
     }
 }
