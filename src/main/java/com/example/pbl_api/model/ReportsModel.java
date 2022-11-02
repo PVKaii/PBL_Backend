@@ -2,11 +2,11 @@ package com.example.pbl_api.model;
 
 import java.util.List;
 
-public class ReportModel {
+public class ReportsModel {
     List<String> labels;
     List<Long> data;
 
-    public ReportModel(List<String> labels, List<Long> data) {
+    public ReportsModel(List<String> labels, List<Long> data) {
         this.labels = labels;
         this.data = data;
     }

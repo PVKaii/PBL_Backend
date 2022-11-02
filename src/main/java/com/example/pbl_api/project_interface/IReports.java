@@ -2,9 +2,9 @@ package com.example.pbl_api.project_interface;
 
 import java.time.LocalDate;
 
-public interface IDayReport {
+public interface IReports {
 
-    LocalDate getDay();
+    Long getData();
 
-    long getTotal();
+    String getLabel();
 }
