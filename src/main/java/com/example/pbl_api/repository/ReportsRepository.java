@@ -34,18 +34,18 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
 
     @Query(value = "select sum(bill.total) as data , \"TOTAL_SALES\" as label from bill\n" +
             "  where bill.type=1\n" +
-            "  && yearweek(bill.day)=yearweek(now() - interval 3 week)\n" +
+            "  && yearweek(bill.day)=yearweek(now())\n" +
             "  group by label\n" +
             "union\n" +
             "select sum(case when bill.type = 1 then bill.total else -bill.total end) as data , \"TOTAL_REVENUE\" as label\n" +
             " from bill\n" +
-            "where yearweek(bill.day)=yearweek(now() - interval 3 week)\n" +
+            "where yearweek(bill.day)=yearweek(now())\n" +
             " group by label\n" +
             "union\n" +
-            "select count(bill_detail.product_id) as data , \"AMOUNT_PRODUCTS_SALES\" as label\n" +
+            "select count(bill_detail.product_id) as data , \"AMOUNT_PRODUCTS_SALES_LASTWEEK\" as label\n" +
             "from bill_detail\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
-            "where yearweek(bill.day) = yearweek(now()  - interval 3 week) && bill.type=1\n" +
+            "where yearweek(bill.day) = yearweek(now()  - interval 1 week) && bill.type=1\n" +
             "union\n" +
             "select sum(bill.total) as data , \"TOTAL_SALES_LASTMONTH\" as label from bill\n" +
             "  where bill.type=1\n" +
