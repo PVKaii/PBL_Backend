@@ -26,7 +26,7 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
             "join bill_detail on  bill_detail.product_id = product.id\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
             "where yearweek(bill.day) = yearweek(now() " +
-//            " - interval 1 week" +
+            " - interval 1 week" +
             ") && bill.type=1\n" +
             "group by(product.name)",nativeQuery = true)
     List<IReports> getWeeksProductsReports();
