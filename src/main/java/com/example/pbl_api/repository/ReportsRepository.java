@@ -37,31 +37,31 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
             "  && yearweek(bill.day)=yearweek(now())\n" +
             "  group by label\n" +
             "union\n" +
-            "select sum(case when bill.type = 1 then bill.total else -bill.total end) as data , \"total revenue\" as label\n" +
+            "select sum(case when bill.type = 1 then bill.total else -bill.total end) as data , \"Total revenue\" as label\n" +
             " from bill\n" +
             "where yearweek(bill.day)=yearweek(now())\n" +
             " group by label\n" +
             "union\n" +
-            "select count(bill_detail.product_id) as data , \"amount product sales\" as label\n" +
+            "select count(bill_detail.product_id) as data , \"Amount products sales\" as label\n" +
             "from bill_detail\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
             "where yearweek(bill.day) = yearweek(now()) && bill.type=1\n" +
             "union\n" +
-            "select sum(bill.total) as data , \"total sales last month\" as label from bill\n" +
+            "select sum(bill.total) as data , \"Total sales last month\" as label from bill\n" +
             "  where bill.type=1\n" +
             "  && DATE_FORMAT(bill.day , '%Y%m')=DATE_FORMAT(now() - interval 1 month , '%Y%m')\n" +
             "  group by label\n" +
             "union\n" +
-            "select sum(case when bill.type = 1 then bill.total else -bill.total end) as data , \"total revenue last month\" as label\n" +
+            "select sum(case when bill.type = 1 then bill.total else -bill.total end) as data , \"Total revenue last month\" as label\n" +
             " from bill\n" +
             "where DATE_FORMAT(bill.day , '%Y%m')=DATE_FORMAT(now() - interval 1 month , '%Y%m')\n" +
             " group by label\n" +
             "union\n" +
-            "select count(bill_detail.product_id) as data , \"amount product sales last month\" as label\n" +
+            "select count(bill_detail.product_id) as data , \"Amount products sales last month\" as label\n" +
             "from bill_detail\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
             "where DATE_FORMAT(bill.day , '%Y%m')=DATE_FORMAT(now() - interval 1 month , '%Y%m') && bill.type=1\n" +
             "union\n" +
-            "select website_visitor.counter as data ,\"visitor\" as label from website_visitor where website_visitor.week = yearweek(now());",nativeQuery = true)
+            "select website_visitor.counter as data ,\"Visitor\" as label from website_visitor where website_visitor.week = yearweek(now());",nativeQuery = true)
     List<IReports> getTotalReports();
 }
