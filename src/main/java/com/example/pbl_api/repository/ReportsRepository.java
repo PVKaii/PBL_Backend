@@ -21,14 +21,13 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
     @Query(value = "select website_visitor.counter as data ,website_visitor.week as label from website_visitor ;",nativeQuery = true)
     List<IReports> getWeeksVisitorsReports();
 
-    @Query(value = "select product.name as label, count(product.name) as data\n" +
+    @Query(value = "select category.name as label, count(category.name) as data \n" +
             "from product \n" +
+            "join category on product.category = category.id\n" +
             "join bill_detail on  bill_detail.product_id = product.id\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
-            "where yearweek(bill.day) = yearweek(now() " +
-            " - interval 1 week" +
-            ") && bill.type=1\n" +
-            "group by(product.name)",nativeQuery = true)
+            "where bill.type=1\n" +
+            "group by(category.name)\n",nativeQuery = true)
     List<IReports> getWeeksProductsReports();
 
 

@@ -36,6 +36,13 @@ public class CategoryService implements ICategoryService {
         return categoryModels;
     }
 
+    @Override
+    public List<String> getAllCategoriesName() {
+        List<String> categoriesName =((List<Category>) categoryRepository.findAll())
+                .stream().map(categoryModel -> categoryModel.getName()).toList();
+        return categoriesName;
+    }
+
 
     @Override
     public List<OptionGroupModel> getOpionGroupsByCategory(int id) {

@@ -22,6 +22,11 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
     }
 
+    @GetMapping("/category")
+    public ResponseEntity<?> getAllCategoriesName(){
+        return new ResponseEntity<>(categoryService.getAllCategoriesName(), HttpStatus.OK);
+    }
+
     @GetMapping("/category/{id}")
     public ResponseEntity<?> getOptionGroupsByCategory(@PathVariable(name = "id")int id){
         return new ResponseEntity<>(categoryService.getOpionGroupsByCategory(id), HttpStatus.OK);

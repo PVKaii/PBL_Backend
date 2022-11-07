@@ -10,6 +10,8 @@ public interface ICategoryService {
 
      List<CategoryModel>  getAllCategories();
 
+    List<String>  getAllCategoriesName();
+
     List<OptionGroupModel> getOpionGroupsByCategory(int id);
 
     List<AttributesModel> getAttributesByOptionGroup(int id);
