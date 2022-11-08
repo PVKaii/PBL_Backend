@@ -35,7 +35,7 @@ public class UserAccountModel implements UserDetails {
 
 
     public static UserAccountModel build(UserAccount userAccount){
-        System.out.println(userAccount.getRoles());
+//        System.out.println(userAccount.getRoles());
         List<GrantedAuthority> authorities = userAccount.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
         return new UserAccountModel(userAccount.getId(),userAccount.getUsername(),userAccount.getPassword(),authorities);

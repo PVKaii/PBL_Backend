@@ -12,11 +12,33 @@ public class BillDetailModel {
 
     private ProductModel product;
 
+    private int amount;
+
+    private double totalPayable;
+
 
 
     public BillDetailModel(BillDetail billDetail) {
         this.id = billDetail.getId();
         this.product = new ProductModel(billDetail.getProduct());
+        this.amount= billDetail.getAmount();
+        this.totalPayable=billDetail.getTotalPayable();
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public double getTotalPayable() {
+        return totalPayable;
+    }
+
+    public void setTotalPayable(double totalPayable) {
+        this.totalPayable = totalPayable;
     }
 
     public BillDetailModel() {

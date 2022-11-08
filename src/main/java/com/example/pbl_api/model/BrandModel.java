@@ -1,4 +1,35 @@
 package com.example.pbl_api.model;
 
+import com.example.pbl_api.entity.Brand;
+
 public class BrandModel {
+    private int id;
+
+    private String name;
+
+    public BrandModel(Brand brand) {
+        this.id = brand.getId();
+        this.name=brand.getName();
+    }
+
+    public BrandModel(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

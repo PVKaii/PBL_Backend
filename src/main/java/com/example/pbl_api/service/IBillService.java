@@ -11,7 +11,7 @@ public interface IBillService {
 
     List<BillModel> getBillsByUser(int idUser);
 
-    BillModel saveBill(List<ProductModel> productList,int idUser,double total,boolean type);
+    BillModel saveBill(List<ProductModel> productList,int idUser,double total,boolean type,List<Integer> productsAmountList);
 
     BillModel getBillById(long id);
 

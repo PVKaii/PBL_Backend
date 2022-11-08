@@ -29,6 +29,10 @@ public class Attributes {
         this.optionGroup = optionGroup;
     }
 
+    public Attributes(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -31,9 +31,13 @@ public class BillController {
     public ResponseEntity<?> saveBill(@RequestBody ObjectNode json){
         ObjectMapper mapper = new ObjectMapper();
         List<ProductModel> productModelList = Arrays.asList(mapper.convertValue( json.get("products"), ProductModel[].class));
+        List<Integer> productsAmountList = Arrays.asList(mapper.convertValue( json.get("amount"),Integer[].class));
         double total = json.get("total").asDouble();
         boolean type = json.get("type").asBoolean();
         int idUser = json.get("idUser").asInt();
-        return new ResponseEntity<>(billService.saveBill(productModelList,idUser,total,type), HttpStatus.OK);
+        System.out.println(productsAmountList);
+        return new ResponseEntity<>(billService.saveBill(productModelList,idUser,total,type,productsAmountList), HttpStatus.OK);
+//        return new ResponseEntity<>("OK", HttpStatus.OK);
+
     }
 }

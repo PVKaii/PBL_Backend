@@ -33,6 +33,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Bill> bills;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Cart> carts;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_account_id",referencedColumnName = "id")
     private UserAccount userAccount;
@@ -49,6 +52,10 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(long id) {
+        this.id = id;
     }
 
     public User(UserModel userModel) {
@@ -104,5 +111,13 @@ public class User {
 
     public Boolean getGender() {
         return gender;
+    }
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
     }
 }

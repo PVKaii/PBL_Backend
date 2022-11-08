@@ -1,5 +1,6 @@
 package com.example.pbl_api.service.impl;
 
+import com.example.pbl_api.entity.Category;
 import com.example.pbl_api.entity.Product;
 import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.repository.CategoryRepository;
@@ -66,7 +67,7 @@ public class ProductService implements IProductService {
     @Override
     public ProductModel saveProduct(ProductModel product) {
         Product productRs= productRepository.save(new Product(
-                product,categoryRepository.findCategoryById(product.getCategory().getId())));
+                product));
         return new ProductModel(productRs);
     }
 

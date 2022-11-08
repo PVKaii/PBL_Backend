@@ -4,6 +4,7 @@ import com.example.pbl_api.model.ProductModel;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "product")
@@ -58,13 +59,16 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<BillDetail> billDetailSet;
 
+    @OneToMany(mappedBy = "product")
+    private Set<Cart> cartSet;
+
 
 
     public Product() {
 
     }
 
-    public Product(ProductModel product,Category category) {
+    public Product(ProductModel product) {
         this.name = product.getName();
         this.information = product.getInformation();
         this.price = product.getPrice();
@@ -72,10 +76,12 @@ public class Product {
         this.description = product.getDescription();
         this.popular = product.getPopular();
         this.rate = product.getRate();
-        this.category = category;
-//        this.brand = brand;
+        this.category = new Category(product.getCategory().getId());
+        this.brand=new Brand(product.getBrand().getId());
 //        this.warranty = warranty;
-//        this.attributesSet = attributesSet;
+        this.attributesSet = product.getAttributes().stream()
+                .map(attributesModel -> new Attributes(attributesModel.getId()))
+                .collect(Collectors.toSet());
     }
 
     public void setProduct(ProductModel product){
@@ -86,6 +92,15 @@ public class Product {
         this.description = product.getDescription();
         this.popular = product.getPopular();
         this.rate = product.getRate();
+        this.category = new Category(product.getCategory().getId());
+        this.brand=new Brand(product.getBrand().getId());
+        this.attributesSet = product.getAttributes().stream()
+                .map(attributesModel -> new Attributes(attributesModel.getId()))
+                .collect(Collectors.toSet());
+    }
+
+    public Product(long id) {
+        this.id = id;
     }
 
     public long getId() {
@@ -185,4 +200,11 @@ public class Product {
     }
 
 
+    public Set<Cart> getCartSet() {
+        return cartSet;
+    }
+
+    public void setCartSet(Set<Cart> cartSet) {
+        this.cartSet = cartSet;
+    }
 }

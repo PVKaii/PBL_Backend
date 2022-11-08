@@ -50,14 +50,16 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public BillModel saveBill(List<ProductModel> productList,int idUser,double total,boolean type) {
+    public BillModel saveBill(List<ProductModel> productList,int idUser,double total,boolean type,List<Integer> productsAmountList) {
         User user =userRepository.findUserById(idUser);
         Bill bill= new Bill(total, LocalDate.now(),user,type);
         List<BillDetail> billDetailList= new ArrayList<>();
-        for (ProductModel productModel:
-             productList) {
+        for(int i =0;i<productList.size();i++){
+            ProductModel productModel = productList.get(i);
             Product product = productRepository.findProductById(productModel.getId());
-            billDetailList.add(new BillDetail(product,bill));
+            int amount = productsAmountList.get(i);
+            double totalPayable =product.getPrice()*amount;
+            billDetailList.add(new BillDetail(product,bill,amount,totalPayable));
         }
         bill.setBillDetailSet(new HashSet<>(billDetailList));
         billRepository.save(bill);

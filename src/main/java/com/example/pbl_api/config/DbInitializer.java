@@ -86,6 +86,15 @@ public class DbInitializer implements ApplicationRunner {
             );
         }
 
+        if(brandRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+            brandRepository.save(new Brand("ASUS"));
+            brandRepository.save(new Brand("DELL"));
+            brandRepository.save(new Brand("HP"));
+            brandRepository.save(new Brand("ACER"));
+            brandRepository.save(new Brand("RYZEN"));
+        }
+
+
         if(categoryRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             categoryRepository.save(
                     new Category("Laptop"));

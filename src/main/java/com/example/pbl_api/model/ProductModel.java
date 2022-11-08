@@ -14,7 +14,7 @@ public class ProductModel {
     private Boolean status;
     private long popular;
     private double rate;
-    private String brand;
+    private BrandModel brand;
     private CategoryModel Category;
     private List<AttributesModel> attributes;
 
@@ -26,8 +26,9 @@ public class ProductModel {
         this.status=product.getStatus();
         this.popular=product.getPopular();
         this.rate=product.getRate();
-        this.Category=new CategoryModel(product.getCategory());
+        if(product.getCategory()!=null) this.Category=new CategoryModel(product.getCategory());
         this.description=product.getDescription();
+        if(product.getBrand()!=null) this.brand=new BrandModel(product.getBrand());
         if(product.getAttributesSet()!=null) this.attributes=product.getAttributesSet().stream().map(attributes1 -> new AttributesModel(attributes1)).toList();
     }
 
@@ -82,11 +83,11 @@ public class ProductModel {
         this.rate = rate;
     }
 
-    public String getBrand() {
+    public BrandModel getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(BrandModel brand) {
         this.brand = brand;
     }
 

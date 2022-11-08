@@ -25,6 +25,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(int id) {
+        this.id = id;
+    }
+
     public Category(String name) {
         this.name = name;
     }
