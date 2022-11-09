@@ -39,32 +39,35 @@ public class BillService implements IBillService {
 
     @Override
     public List<BillModel> getAllBills() {
-        List<BillModel> result = ((List<Bill>) billRepository.findAll()).stream()
+        List<BillModel> result = ((List<Bill>) billRepository.findAllByOrderByIdDesc()).stream()
                 .map( bill -> new BillModel(bill)).toList();
         return result;
     }
 
     @Override
-    public List<BillModel> getBillsByUser(int idUser) {
-        return null;
+    public List<BillModel> getBillsByUser(long idUser) {
+        List<BillModel> result = ((List<Bill>) billRepository.findBillsByUserId(idUser)).stream()
+                .map( bill -> new BillModel(bill)).toList();
+        return result;
     }
 
     @Override
     public BillModel saveBill(List<ProductModel> productList,int idUser,double total,boolean type,List<Integer> productsAmountList) {
-        User user =userRepository.findUserById(idUser);
-        Bill bill= new Bill(total, LocalDate.now(),user,type);
-        List<BillDetail> billDetailList= new ArrayList<>();
-        for(int i =0;i<productList.size();i++){
-            ProductModel productModel = productList.get(i);
-            Product product = productRepository.findProductById(productModel.getId());
-            int amount = productsAmountList.get(i);
-            double totalPayable =product.getPrice()*amount;
-            billDetailList.add(new BillDetail(product,bill,amount,totalPayable));
-        }
-        bill.setBillDetailSet(new HashSet<>(billDetailList));
-        billRepository.save(bill);
-        billDetailRepository.saveAll(billDetailList);
-        return new BillModel(bill);
+//        User user =userRepository.findUserById(idUser);
+//        Bill bill= new Bill(total, LocalDate.now(),user,type);
+//        List<BillDetail> billDetailList= new ArrayList<>();
+//        for(int i =0;i<productList.size();i++){
+//            ProductModel productModel = productList.get(i);
+//            Product product = productRepository.findProductById(productModel.getId());
+//            int amount = productsAmountList.get(i);
+//            double totalPayable =product.getPrice()*amount;
+//            billDetailList.add(new BillDetail(product,bill,amount,totalPayable));
+//        }
+//        bill.setBillDetailSet(new HashSet<>(billDetailList));
+//        billRepository.save(bill);
+//        billDetailRepository.saveAll(billDetailList);
+//        return new BillModel(bill);
+        return null;
     }
 
     @Override

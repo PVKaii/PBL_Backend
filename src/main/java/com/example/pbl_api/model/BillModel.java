@@ -30,9 +30,16 @@ public class BillModel {
         this.total = bill.getTotal();
         this.day = bill.getDay();
         this.type=bill.isType();
-        this.user = new UserModel(bill.getUser());
+        this.user = new UserModel(bill.getOrder().getUser());
         this.billDetails=bill.getBillDetailSet().stream()
                 .map(billDetail -> new BillDetailModel(billDetail)).toList();
+    }
+
+    public BillModel(long id, double total, LocalDate day, boolean type) {
+        this.id = id;
+        this.total = total;
+        this.day = day;
+        this.type = type;
     }
 
     public boolean isType() {

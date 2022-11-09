@@ -24,8 +24,9 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
     @Query(value = "select category.name as label, count(category.name) as data \n" +
             "from product \n" +
             "join category on product.category = category.id\n" +
-            "join bill_detail on  bill_detail.product_id = product.id\n" +
-            "join bill on bill_detail.bill_id=bill.id \n" +
+            "join order_detail on order_detail.product_id = product.id\n" +
+            "join user_order on  order_detail.order_id = user_order.id\n" +
+            "join bill on user_order.id=bill.order_id  \n" +
             "where bill.type=1\n" +
             "group by(category.name)\n",nativeQuery = true)
     List<IReports> getWeeksProductsReports();
@@ -41,8 +42,9 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
             "where yearweek(bill.day)=yearweek(now())\n" +
             " group by label\n" +
             "union\n" +
-            "select count(bill_detail.product_id) as data , \"Amount products sales\" as label\n" +
-            "from bill_detail\n" +
+            "select count(order_detail.product_id) as data , \"Amount products sales\" as label\n" +
+            "from order_detail\n" +
+            "join bill_detail on bill_detail.detail_id=order_detail.id\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
             "where yearweek(bill.day) = yearweek(now()) && bill.type=1\n" +
             "union\n" +
@@ -56,8 +58,9 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
             "where DATE_FORMAT(bill.day , '%Y%m')=DATE_FORMAT(now() - interval 1 month , '%Y%m')\n" +
             " group by label\n" +
             "union\n" +
-            "select count(bill_detail.product_id) as data , \"Amount products sales last month\" as label\n" +
-            "from bill_detail\n" +
+            "select count(order_detail.product_id) as data , \"Amount products sales last month\" as label\n" +
+            "from order_detail\n" +
+            "join bill_detail on bill_detail.detail_id=order_detail.id\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
             "where DATE_FORMAT(bill.day , '%Y%m')=DATE_FORMAT(now() - interval 1 month , '%Y%m') && bill.type=1\n" +
             "union\n" +

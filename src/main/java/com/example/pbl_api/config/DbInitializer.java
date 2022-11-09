@@ -36,14 +36,26 @@ public class DbInitializer implements ApplicationRunner {
     @Autowired
     PasswordEncoder encoder;
 
+    @Autowired
+    OrderStatusRepository orderStatusRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
         System.out.println("123");
 
+
         if(roleRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             roleRepository.save(new Role("ROLE_ADMIN"));
             roleRepository.save(new Role("ROLE_MEMBER"));
+        }
+
+        if(orderStatusRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+            orderStatusRepository.save(new OrderStatus("Chưa xác nhận"));
+            orderStatusRepository.save(new OrderStatus("Đã xác nhận"));
+            orderStatusRepository.save(new OrderStatus("Đã từ chối"));
+
+
         }
 
 

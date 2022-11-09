@@ -7,13 +7,13 @@ import java.util.List;
 public class AttributesModel {
     private int id;
     private String name;
-//    OptionGroupModel optionGroup;
+    private String optionGroup;
 
 
     public AttributesModel(Attributes attributes) {
         this.id = attributes.getId();
         this.name = attributes.getName();
-//        this.optionGroup = new OptionGroupModel(attributes.getOptionGroup());
+        this.optionGroup = attributes.getOptionGroup().getName();
     }
 
     public AttributesModel(int id, String name) {
@@ -22,6 +22,14 @@ public class AttributesModel {
     }
 
     public AttributesModel() {
+    }
+
+    public String getOptionGroup() {
+        return optionGroup;
+    }
+
+    public void setOptionGroup(String optionGroup) {
+        this.optionGroup = optionGroup;
     }
 
     public int getId() {

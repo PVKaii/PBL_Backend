@@ -10,9 +10,7 @@ public class BillDetailModel {
 
     private long id;
 
-    private ProductModel product;
-
-    private int amount;
+    private OrderDetailModel orderDetail;
 
     private double totalPayable;
 
@@ -20,17 +18,16 @@ public class BillDetailModel {
 
     public BillDetailModel(BillDetail billDetail) {
         this.id = billDetail.getId();
-        this.product = new ProductModel(billDetail.getProduct());
-        this.amount= billDetail.getAmount();
+        this.orderDetail = new OrderDetailModel(billDetail.getOrderDetail());
         this.totalPayable=billDetail.getTotalPayable();
     }
 
-    public int getAmount() {
-        return amount;
+    public OrderDetailModel getOrderDetail() {
+        return orderDetail;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setOrderDetail(OrderDetailModel orderDetail) {
+        this.orderDetail = orderDetail;
     }
 
     public double getTotalPayable() {
@@ -52,13 +49,6 @@ public class BillDetailModel {
         this.id = id;
     }
 
-    public ProductModel getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductModel product) {
-        this.product = product;
-    }
 
 
 }

@@ -5,7 +5,6 @@ import com.example.pbl_api.model.UserModel;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -31,7 +30,7 @@ public class User {
     private Boolean gender;
 
     @OneToMany(mappedBy = "user")
-    private Set<Bill> bills;
+    private Set<UserOrder> userOrders;
 
     @OneToMany(mappedBy = "user")
     private Set<Cart> carts;
@@ -81,8 +80,12 @@ public class User {
         this.gender = userModel.getGender();
     }
 
-    public Set<Bill> getBills() {
-        return bills;
+    public Set<UserOrder> getOrders() {
+        return userOrders;
+    }
+
+    public void setOrders(Set<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 
     public String getName() {

@@ -10,39 +10,30 @@ public class BillDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "amount")
-    private int amount;
 
     @Column(name = "total_payable")
     private double totalPayable;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id",nullable = false)
-    private Product product;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "detail_id",referencedColumnName = "id")
+    private OrderDetail orderDetail;
+
 
     @ManyToOne
     @JoinColumn(name = "bill_id",nullable = false)
     private Bill bill;
 
 
-    public BillDetail(Product product, Bill bill,int amount,double totalPayable) {
-        this.product = product;
+    public BillDetail(Bill bill,double totalPayable,OrderDetail orderDetail) {
         this.bill = bill;
-        this.amount=amount;
         this.totalPayable=totalPayable;
+        this.orderDetail=orderDetail;
     }
 
     public BillDetail() {
 
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     public double getTotalPayable() {
         return totalPayable;
@@ -60,12 +51,12 @@ public class BillDetail {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public OrderDetail getOrderDetail() {
+        return orderDetail;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
     }
 
     public Bill getBill() {

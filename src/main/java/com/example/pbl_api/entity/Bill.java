@@ -5,8 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -27,17 +25,18 @@ public class Bill {
     @Column(name = "type")
     private boolean type;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    private UserOrder userOrder;
 
     @OneToMany(mappedBy = "bill",cascade = CascadeType.REMOVE)
     private Set<BillDetail> billDetailSet;
 
-    public Bill(double total, LocalDate day, User user,boolean type) {
+    public Bill(double total, LocalDate day, UserOrder userOrder, boolean type) {
         this.total = total;
         this.day = day;
-        this.user = user;
+        this.userOrder = userOrder;
         this.type=type;
     }
 
@@ -77,12 +76,12 @@ public class Bill {
         this.day = day;
     }
 
-    public User getUser() {
-        return user;
+    public UserOrder getOrder() {
+        return userOrder;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrder(UserOrder userOrder) {
+        this.userOrder = userOrder;
     }
 
     public Set<BillDetail> getBillDetailSet() {

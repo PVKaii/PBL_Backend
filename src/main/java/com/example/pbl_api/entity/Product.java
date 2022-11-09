@@ -57,7 +57,7 @@ public class Product {
     private Set<Attributes> attributesSet;
 
     @OneToMany(mappedBy = "product")
-    private Set<BillDetail> billDetailSet;
+    private Set<OrderDetail> orderDetailSet;
 
     @OneToMany(mappedBy = "product")
     private Set<Cart> cartSet;
