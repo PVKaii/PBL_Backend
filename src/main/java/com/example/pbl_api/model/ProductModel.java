@@ -10,7 +10,7 @@ public class ProductModel {
     private String name;
     private String information;
     private String description;
-    private double price;
+    private long price;
     private Boolean status;
     private long popular;
     private double rate;
@@ -21,10 +21,8 @@ public class ProductModel {
     public ProductModel(Product product) {
         this.id=product.getId();
         this.name=product.getName();
-        this.information=product.getInformation();
         this.price=product.getPrice();
         this.status=product.getStatus();
-        this.popular=product.getPopular();
         this.rate=product.getRate();
         if(product.getCategory()!=null) this.Category=new CategoryModel(product.getCategory());
         this.description=product.getDescription();
@@ -51,11 +49,11 @@ public class ProductModel {
         this.information = information;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 

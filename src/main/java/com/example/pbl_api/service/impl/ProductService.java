@@ -48,9 +48,12 @@ public class ProductService implements IProductService {
         for (int i = 0; i < 5-sizeFilter; i++) {
             filters.add(null);
         }
+        System.out.println(sizeFilter);
         List<ProductModel> productModels=productRepository.findProductsByFilter(
                 idCatgory,
-                filters.get(0),filters.get(1),filters.get(2),filters.get(3),filters.get(4))
+                filters.get(0),filters.get(1),filters.get(2),filters.get(3),filters.get(4),
+                sizeFilter-1
+                )
                 .stream().map(product -> new ProductModel(product)).toList();
         return productModels;
     }

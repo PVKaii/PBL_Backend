@@ -11,4 +11,6 @@ public interface OptionGroupRepository extends CrudRepository<OptionGroup,Intege
     OptionGroup findOptionGroupByNameAndCategoryName(String name1,String name2);
 
     List<OptionGroup> findOptionGroupsByCategoryId(int id);
+
+
 }

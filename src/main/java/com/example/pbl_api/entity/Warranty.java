@@ -14,6 +14,4 @@ public class Warranty {
     @Column(name = "time")
     private Date time;
 
-    @OneToMany(mappedBy = "warranty")
-    private Set<Product> productSet;
 }

@@ -17,21 +17,19 @@ public class Product {
     private String name;
 
 
-    @Column(name = "information")
-    private String information;
+    @OneToMany(mappedBy = "product")
+    private Set<ProductImage> imageSet;
 
     @Column(name = "price",nullable = false)
-    private double price;
+    private long price;
 
     @Column(name = "status",nullable = false)
     private Boolean status;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "TEXT")
     private String description;
 
 
-    @Column(name = "popular")
-    private long popular ;
 
     @Column(name = "rate")
     private double rate;
@@ -44,9 +42,6 @@ public class Product {
     @JoinColumn(name = "brand")
     private Brand brand;
 
-    @ManyToOne
-    @JoinColumn(name = "warranty")
-    private Warranty warranty;
 
     @ManyToMany
     @JoinTable(
@@ -68,13 +63,21 @@ public class Product {
 
     }
 
+    public Product(String name, long price, String description, Set<Attributes> attributesSet,Brand brand,Category category) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.attributesSet = attributesSet;
+        this.status=true;
+        this.category=category;
+        this.brand=brand;
+    }
+
     public Product(ProductModel product) {
         this.name = product.getName();
-        this.information = product.getInformation();
         this.price = product.getPrice();
         this.status = product.getStatus();
         this.description = product.getDescription();
-        this.popular = product.getPopular();
         this.rate = product.getRate();
         this.category = new Category(product.getCategory().getId());
         this.brand=new Brand(product.getBrand().getId());
@@ -86,11 +89,9 @@ public class Product {
 
     public void setProduct(ProductModel product){
         this.name = product.getName();
-        this.information = product.getInformation();
         this.price = product.getPrice();
         this.status = product.getStatus();
         this.description = product.getDescription();
-        this.popular = product.getPopular();
         this.rate = product.getRate();
         this.category = new Category(product.getCategory().getId());
         this.brand=new Brand(product.getBrand().getId());
@@ -119,11 +120,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
@@ -143,13 +144,6 @@ public class Product {
         this.description = description;
     }
 
-    public long getPopular() {
-        return popular;
-    }
-
-    public void setPopular(long popular) {
-        this.popular = popular;
-    }
 
     public double getRate() {
         return rate;
@@ -175,13 +169,6 @@ public class Product {
         this.brand = brand;
     }
 
-    public Warranty getWarranty() {
-        return warranty;
-    }
-
-    public void setWarranty(Warranty warranty) {
-        this.warranty = warranty;
-    }
 
     public Set<Attributes> getAttributesSet() {
         return attributesSet;
@@ -191,13 +178,6 @@ public class Product {
         this.attributesSet = attributesSet;
     }
 
-    public String getInformation() {
-        return information;
-    }
-
-    public void setInformation(String information) {
-        this.information = information;
-    }
 
 
     public Set<Cart> getCartSet() {
@@ -206,5 +186,13 @@ public class Product {
 
     public void setCartSet(Set<Cart> cartSet) {
         this.cartSet = cartSet;
+    }
+
+    public Set<ProductImage> getImageSet() {
+        return imageSet;
+    }
+
+    public void setImageSet(Set<ProductImage> imageSet) {
+        this.imageSet = imageSet;
     }
 }
