@@ -138,7 +138,7 @@ public class ReadCSV implements ApplicationRunner {
 
     void loadLaptopData() throws Exception {
         ClassLoader c = getClass().getClassLoader();
-        String fileName = "src\\main\\resources\\Data\\laptop.csv";
+        String fileName = "src\\main\\java\\com\\example\\pbl_api\\Data\\laptop.csv";
         List<String[]> r = getDataFromFileCsv(fileName);
         loadData(r,LAPTOP);
     }
