@@ -178,7 +178,7 @@ public class ReadCSV implements ApplicationRunner {
         String[] labels = r.get(0);
         List<HashMap<String,Object>> mapDataList = new ArrayList<>();
         HashMap<String , Object> mapData = new HashMap<>();
-        for (int i =1 ; i<r.size();i++){
+        for (int i =1 ; i<30;i++){
             String[] dataList = r.get(i);
             if(dataList[0].isEmpty()==false){
                 if(mapData.size()>0) mapDataList.add(mapData);
@@ -246,7 +246,7 @@ public class ReadCSV implements ApplicationRunner {
     List<OptionGroup> insertOptionGroup(List<String> optionGroupSet,String category){
         List<OptionGroup> rs = new ArrayList<>();
         optionGroupSet.forEach(data ->{
-                OptionGroup optionGroup = optionGroupRepository.findOptionGroupByNameAndCategoryName(data,category);
+                OptionGroup optionGroup =optionGroupRepository.findOptionGroupByNameAndCategoryName(data,category);
                 if(optionGroup==null){
                     optionGroup = new OptionGroup(data,categoryRepository.findCategoryByName(category));
                     if(data.equals("Thương hiệu")==false) optionGroupRepository.save(optionGroup);
