@@ -4,4 +4,5 @@ import com.example.pbl_api.entity.ProductImage;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProductImageRepository extends CrudRepository<ProductImage,Long> {
+    ProductImage findProductImageByUrlAndProductName(String url,String name);
 }
