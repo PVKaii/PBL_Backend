@@ -178,10 +178,13 @@ public class ReadCSV implements ApplicationRunner {
         String[] labels = r.get(0);
         List<HashMap<String,Object>> mapDataList = new ArrayList<>();
         HashMap<String , Object> mapData = new HashMap<>();
-        for (int i =1 ; i<30;i++){
+        int count =0;
+        for (int i =1 ; i<r.size();i++){
             String[] dataList = r.get(i);
             if(dataList[0].isEmpty()==false){
+                if(count>30) break;
                 if(mapData.size()>0) mapDataList.add(mapData);
+                count++;
                 mapData = new HashMap<>();
             }
 //            System.out.println(Arrays.toString(dataList));
