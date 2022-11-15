@@ -1,6 +1,7 @@
 package com.example.pbl_api.service.impl;
 
 import com.example.pbl_api.entity.Category;
+import com.example.pbl_api.entity.OptionGroup;
 import com.example.pbl_api.model.AttributesModel;
 import com.example.pbl_api.model.CategoryModel;
 import com.example.pbl_api.model.OptionGroupModel;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -32,7 +34,8 @@ public class CategoryService implements ICategoryService {
     @Override
     public List<CategoryModel> getAllCategories() {
         List<CategoryModel> categoryModels =((List<Category>) categoryRepository.findAll())
-                .stream().map(categoryModel -> new CategoryModel(categoryModel.getId(),categoryModel.getName(),categoryModel.getOptionGroupSet())).toList();
+                .stream().map(categoryModel -> new CategoryModel(categoryModel.getId(),categoryModel.getName()
+                        ,optionGroupRepository.getListOptionToShow(categoryModel.getId()))).toList();
         return categoryModels;
     }
 

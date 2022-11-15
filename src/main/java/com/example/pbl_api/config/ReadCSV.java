@@ -71,7 +71,16 @@ public class ReadCSV implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-                if(roleRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+
+
+
+        loadInitData();
+        loadCategory();
+        loadLaptopData();
+    }
+
+    void loadInitData(){
+        if(roleRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             roleRepository.save(new Role("ROLE_ADMIN"));
             roleRepository.save(new Role("ROLE_MEMBER"));
         }
@@ -95,12 +104,12 @@ public class ReadCSV implements ApplicationRunner {
                             true,
                             new UserAccount("admin@gmail.com",
                                     encoder.encode("123456"),
-                            new ArrayList<>(){
-                                {
-                                    add(new Role(1));
-                                    add(new Role(2));
-                                }
-                            }
+                                    new ArrayList<>(){
+                                        {
+                                            add(new Role(1));
+                                            add(new Role(2));
+                                        }
+                                    }
                             )
                     )
             );
@@ -123,11 +132,6 @@ public class ReadCSV implements ApplicationRunner {
                     )
             );
         }
-
-
-
-        loadCategory();
-        loadLaptopData();
     }
 
 

@@ -18,16 +18,29 @@ public class ProductModel {
     private CategoryModel Category;
     private List<AttributesModel> attributes;
 
+    private List<String> productImgs;
+
     public ProductModel(Product product) {
         this.id=product.getId();
         this.name=product.getName();
         this.price=product.getPrice();
         this.status=product.getStatus();
         this.rate=product.getRate();
+        if(product.getImageSet()!=null) this.productImgs = product.getImageSet().stream().map(
+                productImage -> productImage.getUrl()
+        ).toList();
         if(product.getCategory()!=null) this.Category=new CategoryModel(product.getCategory());
         this.description=product.getDescription();
         if(product.getBrand()!=null) this.brand=new BrandModel(product.getBrand());
         if(product.getAttributesSet()!=null) this.attributes=product.getAttributesSet().stream().map(attributes1 -> new AttributesModel(attributes1)).toList();
+    }
+
+    public List<String> getProductImgs() {
+        return productImgs;
+    }
+
+    public void setProductImgs(List<String> productImgs) {
+        this.productImgs = productImgs;
     }
 
     public ProductModel() {
