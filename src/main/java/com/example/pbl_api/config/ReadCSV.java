@@ -32,7 +32,7 @@ enum DataKey {
 }
 
 
-@Component
+//@Component
 public class ReadCSV implements ApplicationRunner {
 
     static final String LAPTOP ="Laptop";
@@ -67,6 +67,11 @@ public class ReadCSV implements ApplicationRunner {
 
     @Autowired
     ProductImageRepository productImageRepository;
+
+    List<OptionGroup> optionGroupList=new ArrayList<>();
+    List<Attributes> attributesList = new ArrayList<>();
+    List<Product> productList = new ArrayList<>();
+    List<ProductImage> productImageList = new ArrayList<>();
 
 
     @Override
