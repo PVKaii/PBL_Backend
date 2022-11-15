@@ -223,10 +223,9 @@ public class ReadCSV implements ApplicationRunner {
 
     void insertProductImgs(List<String> listImg,Product product){
         listImg.forEach(data->{
-            if(productImageRepository.findProductImageByUrlAndProductName(data,product.getName())==null){
                 productImageRepository.save(new ProductImage(data,product));
 
-            }
+
         });
     }
     void insertProduct(String name ,String price , String description
