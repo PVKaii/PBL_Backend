@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -137,8 +136,9 @@ public class ReadCSV implements ApplicationRunner {
 
 
     void loadLaptopData() throws Exception {
-        ClassLoader c = getClass().getClassLoader();
-        String fileName = "src\\main\\java\\com\\example\\pbl_api\\Data\\laptop.csv";
+        String path= System.getProperty("user.dir");
+        System.out.println(path);
+        String fileName =path+ "\\src\\main\\java\\com\\example\\pbl_api\\Data\\laptop.csv";
         List<String[]> r = getDataFromFileCsv(fileName);
         loadData(r,LAPTOP);
     }
