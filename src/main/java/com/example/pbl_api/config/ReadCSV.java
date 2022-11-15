@@ -182,7 +182,7 @@ public class ReadCSV implements ApplicationRunner {
         for (int i =1 ; i<r.size();i++){
             String[] dataList = r.get(i);
             if(dataList[0].isEmpty()==false){
-                if(count>30) break;
+                if(count>9) break;
                 if(mapData.size()>0) mapDataList.add(mapData);
                 count++;
                 mapData = new HashMap<>();
