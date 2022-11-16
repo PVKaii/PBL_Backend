@@ -32,7 +32,7 @@ enum DataKey {
 }
 
 
-@Component
+//@Component
 public class ReadCSV implements ApplicationRunner {
 
     static final String LAPTOP ="Laptop";
