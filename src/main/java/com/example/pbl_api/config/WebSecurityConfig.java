@@ -95,7 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers("/",
 
-						"/login","/product")
+						"/login","/product","/product/{id}")
 				.permitAll()
 
 				.anyRequest().authenticated()

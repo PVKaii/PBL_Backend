@@ -5,10 +5,13 @@ import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -20,15 +23,16 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getProducts(@RequestParam(name = "category",required = false) Integer idCategory,@RequestParam(name = "filter",required = false) List<Integer> filters){
-        System.out.println(filters);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
         if(idCategory==null){
-            return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+            return new ResponseEntity<>(productService.getAllProducts(), httpHeaders,HttpStatus.OK);
         }
         else if(idCategory!=null&&filters==null) {
-            return new ResponseEntity<>(productService.getProductsByCategory(idCategory), HttpStatus.OK);
+            return new ResponseEntity<>(productService.getProductsByCategory(idCategory),httpHeaders, HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>(productService.getProductsByFilter(idCategory,filters), HttpStatus.OK);
+            return new ResponseEntity<>(productService.getProductsByFilter(idCategory,filters),httpHeaders, HttpStatus.OK);
         }
     }
 

@@ -4,12 +4,17 @@ package com.example.pbl_api.controller;
 import com.example.pbl_api.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("")
@@ -19,7 +24,11 @@ public class CategoryController {
 
     @GetMapping("/")
     public ResponseEntity<?> getAllCategories(){
-        return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
+        UUID idTwo = UUID.randomUUID();
+        System.out.println(idTwo);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+        return new ResponseEntity<>(categoryService.getAllCategories(), httpHeaders, HttpStatus.OK);
     }
 
     @GetMapping("/category")
