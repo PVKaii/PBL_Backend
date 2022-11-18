@@ -63,8 +63,10 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findProducts(@PathVariable(name = "id") long id){
         ProductModel product= productService.findProductModelById(id);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
         if(product ==null) throw new RuntimeException();
-        else return new ResponseEntity<>(product,HttpStatus.OK);
+        else return new ResponseEntity<>(product,httpHeaders,HttpStatus.OK);
     }
 
 }
