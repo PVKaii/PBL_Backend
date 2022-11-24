@@ -60,4 +60,10 @@ public class CartService implements ICartService {
                 .stream().map(cart -> new CartModel(cart)).toList();
         return cartProducts;
     }
+
+    @Override
+    public void deleteCartsById(List<Long> listId) {
+        List<Cart> listCart = listId.stream().map(id -> new Cart(id)).toList();
+        cartRepository.deleteAll(listCart);
+    }
 }

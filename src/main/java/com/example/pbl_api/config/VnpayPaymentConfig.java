@@ -9,10 +9,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
 
 @Component
-public class PaymentConfig {
+public class VnpayPaymentConfig {
     public static final String vnp_TmnCode = "LHLI5EDO";
     public static final String vnp_Command = "pay";
     public static final String vnp_SecureHash = "UXEOUJJVRKMNNLFAZDHMRKVHFLROHHDJ";
@@ -22,6 +21,33 @@ public class PaymentConfig {
     public static final String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static final String vnp_OrderType= "130000";
     public static final String vnp_Locale= "vn";
+
+
+    public static String Sha256(String message) {
+        String digest = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(message.getBytes("UTF-8"));
+
+            // converting byte array to Hexadecimal String
+            StringBuilder sb = new StringBuilder(2 * hash.length);
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+
+            digest = sb.toString();
+
+        } catch (UnsupportedEncodingException ex) {
+            digest = "";
+            // Logger.getLogger(StringReplace.class.getName()).log(Level.SEVERE,
+            // null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            // Logger.getLogger(StringReplace.class.getName()).log(Level.SEVERE,
+            // null, ex);
+            digest = "";
+        }
+        return digest;
+    }
 
 
 

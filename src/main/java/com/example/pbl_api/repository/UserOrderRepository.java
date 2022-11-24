@@ -11,4 +11,6 @@ public interface UserOrderRepository extends CrudRepository<UserOrder,Long> {
     List<UserOrder> getUserOrdersByUserId(long id);
 
     UserOrder findById(long id);
+
+    UserOrder findUserOrderByPayment(String payment);
 }

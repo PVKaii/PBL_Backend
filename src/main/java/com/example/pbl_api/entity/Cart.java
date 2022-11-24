@@ -11,6 +11,8 @@ public class Cart {
     private long id;
 
 
+
+
     @Column(name = "amount")
     private int amount;
     @ManyToOne
@@ -29,6 +31,10 @@ public class Cart {
 
     public Cart() {
 
+    }
+
+    public Cart(long id) {
+        this.id = id;
     }
 
     public int getAmount() {
@@ -62,4 +68,5 @@ public class Cart {
     public void setProduct(Product product) {
         this.product = product;
     }
+
 }

@@ -12,4 +12,6 @@ public interface ICartService {
 
     List<CartModel> getAllProductsFromUserCart(long userId);
 
+    void deleteCartsById(List<Long> listId);
+
 }

@@ -19,6 +19,9 @@ public class UserOrder {
     @DateTimeFormat(pattern="dd-MM-yyyy")
     private LocalDate dayOrder;
 
+    @Column(name = "payment")
+    private String payment;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -34,14 +37,23 @@ public class UserOrder {
     private Set<OrderDetail> orderDetailSet;
 
 
-    public UserOrder(LocalDate dayOrder, User user, OrderStatus orderStatus) {
+    public UserOrder(LocalDate dayOrder, User user, OrderStatus orderStatus,String payment) {
         this.dayOrder = dayOrder;
         this.user = user;
         this.orderStatus = orderStatus;
+        this.payment=payment;
     }
 
     public UserOrder() {
 
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
     public long getId() {

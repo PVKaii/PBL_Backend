@@ -37,4 +37,11 @@ public class CartController {
     };
 
 
+    @GetMapping("/remove")
+    public ResponseEntity<?> deleteCartsById(@RequestParam(name = "id") List<Long> listId){
+//        cartService.deleteCartsById(listId);
+        return new ResponseEntity<>( HttpStatus.OK);
+    };
+
+
 }

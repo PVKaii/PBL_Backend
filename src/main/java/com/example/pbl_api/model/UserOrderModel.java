@@ -23,6 +23,7 @@ public class UserOrderModel {
     private OrderStatusModel orderStatus;
 
     private List<OrderDetailModel> orderDetailSet;
+    private String payment;
 
 
     public UserOrderModel() {
@@ -36,9 +37,10 @@ public class UserOrderModel {
         this.orderStatus = new OrderStatusModel(userOrder.getOrderStatus());
         this.orderDetailSet = userOrder.getOrderDetailSet().stream()
                 .map(orderDetail -> new OrderDetailModel(orderDetail)).toList();
+        this.payment = userOrder.getPayment();
     }
 
-    public UserOrderModel(UserOrder userOrder,Bill bill,List<OrderDetail> orderDetailSet) {
+    public UserOrderModel(UserOrder userOrder,Bill bill,List<OrderDetail> orderDetailSet,String payment) {
         this.id = userOrder.getId();
         this.dayOrder = userOrder.getDayOrder();
         this.user = new UserModel(userOrder.getUser());
@@ -46,6 +48,7 @@ public class UserOrderModel {
         this.orderStatus = new OrderStatusModel(userOrder.getOrderStatus());
         this.orderDetailSet = orderDetailSet.stream()
                 .map(orderDetail -> new OrderDetailModel(orderDetail)).toList();
+        this.payment = payment;
     }
 
     public long getId() {

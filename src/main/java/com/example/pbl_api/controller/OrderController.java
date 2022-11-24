@@ -1,5 +1,6 @@
 package com.example.pbl_api.controller;
 
+import com.example.pbl_api.model.CartModel;
 import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.model.UserOrderModel;
 import com.example.pbl_api.service.impl.BillService;
@@ -38,14 +39,14 @@ public class OrderController {
     @PostMapping("")
     public ResponseEntity<?> order(@RequestBody ObjectNode json){
         ObjectMapper mapper = new ObjectMapper();
-        List<ProductModel> productModelList = Arrays.asList(mapper.convertValue( json.get("products"), ProductModel[].class));
-        List<Integer> productsAmountList = Arrays.asList(mapper.convertValue( json.get("amount"),Integer[].class));
+        List<CartModel> cartList = Arrays.asList(mapper.convertValue( json.get("cart"), CartModel[].class));
         double total = json.get("total").asDouble();
         boolean type = json.get("type").asBoolean();
         int idUser = json.get("idUser").asInt();
 //        System.out.println(productsAmountList);
-        return new ResponseEntity<>(orderService.order(productModelList,idUser,total,type,productsAmountList), HttpStatus.OK);
+//        return new ResponseEntity<>(orderService.order(cartList,idUser,total,type), HttpStatus.OK);
 //        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return null;
 
     }
 }

@@ -9,12 +9,15 @@ public class CartModel {
 
     private int amount;
 
+
     public CartModel(Cart cart) {
         this.id = cart.getId();
         this.user = new UserModel(cart.getUser());
         this.product = new ProductModel(cart.getProduct());
         this.amount= cart.getAmount();
     }
+
+
 
     public int getAmount() {
         return amount;
@@ -30,6 +33,10 @@ public class CartModel {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public UserModel getUser() {
