@@ -35,6 +35,8 @@ public class UserModel {
 
     private UserAccountModel userAccount;
 
+    private String email;
+
     public UserModel(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -42,11 +44,23 @@ public class UserModel {
         this.address = user.getAddress();
         this.phoneNumber = user.getPhoneNumber();
         this.gender = user.getGender();
+        this.email=user.getUserAccount().getProvider();
     }
 
     public UserModel() {
     }
 
+    public UserModel(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getId() {
         return id;

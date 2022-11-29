@@ -23,13 +23,14 @@ public class UserAccountModel implements UserDetails {
 
     private Collection<? extends GrantedAuthority> roles;
 
+    private String provider;
+
 
     public UserAccountModel(Long id, String username, String password, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.roles = roles;
-
     }
 
 
@@ -48,12 +49,14 @@ public class UserAccountModel implements UserDetails {
     public UserAccountModel() {
     }
 
-    public UserAccountModel(String username, String password, List<String> roles) {
+    public UserAccountModel(String username, String password, List<String> roles,String provider) {
         this.username = username;
         this.password = password;
         this.roles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+        this.provider=provider;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -70,6 +73,14 @@ public class UserAccountModel implements UserDetails {
     public String getUsername() {
 
         return this.username;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
     @Override

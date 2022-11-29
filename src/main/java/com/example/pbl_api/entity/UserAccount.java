@@ -25,6 +25,9 @@ public class UserAccount implements Serializable {
 	    @Column(name = "password", nullable = false)
 	    private String password;
 
+		@Column(name = "provider")
+		private String provider;
+
 		@OneToOne(mappedBy = "userAccount")
 		private User user;
 
@@ -38,10 +41,11 @@ public class UserAccount implements Serializable {
 	    private Set<Role> roles;
 
 
-	public UserAccount(String username, String password, List<Role> roles) {
+	public UserAccount(String username, String password, List<Role> roles,String provider) {
 		this.username = username;
 		this.password = password;
 		this.roles= new HashSet<>(roles);
+		this.provider=provider;
 	}
 
 	public UserAccount() {
@@ -55,6 +59,21 @@ public class UserAccount implements Serializable {
 	}
 
 
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Long getId() {
 	        return id;

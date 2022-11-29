@@ -1,12 +1,9 @@
 package com.example.pbl_api.config;
 
-import com.example.pbl_api.config.CustomAccessDeniedHandler;
-import com.example.pbl_api.config.JwtAuthenticationFilter;
-import com.example.pbl_api.config.RestAuthenticationEntryPoint;
+import com.example.pbl_api.service.impl.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,7 +22,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 @Configuration
@@ -39,6 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
     private UserDetailsService userDetailsService;
+
+	@Autowired
+	OAuth2SuccessHandler oAuth2SuccessHandler;
+
+	@Autowired
+	CustomOAuth2UserService oAuth2UserService;
 
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -66,7 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-
 		return new BCryptPasswordEncoder(10);
 
 	}
@@ -91,18 +92,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		http.csrf().ignoringAntMatchers("/**");
 		http.cors().and().csrf().disable();
 
-		http.authorizeRequests()
+		http.antMatcher("/**").authorizeRequests()
 
-				.antMatchers("/",
+				.antMatchers("/","/auth/**", "/oauth2/**","/provider",
 
-						"/login","/product","/product/{id}","/payment/paypal/**/**")
+						"/login","/product/**","/reports","/payment/paypal/**/**")
 				.permitAll()
 
 				.anyRequest().authenticated()
+				.and().oauth2Login()
+				.authorizationEndpoint().baseUri("/oauth2/authorize")
+				.and().redirectionEndpoint().baseUri("/oauth2/callback/*")
+				.and().userInfoEndpoint().userService(oAuth2UserService)
+				.and().successHandler(oAuth2SuccessHandler);
 
-				.and().csrf().disable()
-
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+				http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 		http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
 
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

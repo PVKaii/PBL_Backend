@@ -1,6 +1,7 @@
 package com.example.pbl_api.controller;
 
 
+import com.example.pbl_api.contants.RandomPassword;
 import com.example.pbl_api.model.JwtResponse;
 import com.example.pbl_api.model.UserAccountModel;
 import com.example.pbl_api.model.UserModel;
@@ -15,12 +16,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -39,6 +45,8 @@ public class AuthController {
     PasswordEncoder encoder;
 
 
+
+
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody UserAccountModel userAccount){
         Authentication authentication =authenticationManager.authenticate(
@@ -54,6 +62,15 @@ public class AuthController {
         return new ResponseEntity<>(new JwtResponse(jwt,user,userDetails.getAuthorities()), HttpStatus.OK);
     }
 
+    @PostMapping("provider")
+    public ResponseEntity<?> loginByGoogle(@RequestBody UserAccountModel account){
+        String jwt=jwtService.generateOauth2TokenLogin(account.getUsername());
+        Collection<? extends GrantedAuthority> userRoles = userService.loadRolesByAccoutName(account.getUsername());
+        UserModel user = userService.loadUserDetailByAccoutName(account.getUsername());
+        return new ResponseEntity<>(new JwtResponse(jwt,user,userRoles), HttpStatus.OK);
+    }
+
+
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody ObjectNode json) throws Exception {
@@ -65,7 +82,7 @@ public class AuthController {
         String password=encoder.encode(json.get("password").asText());
         List<String> roles= Arrays.asList(mapper.convertValue( json.get("roles"), String[].class));
         UserModel newUserDetail=mapper.convertValue(json.get("userDetail"),UserModel.class);
-        UserAccountModel newUserAccout = new UserAccountModel(username,password,roles);
+        UserAccountModel newUserAccout = new UserAccountModel(username,password,roles,null);
         userService.saveNewUser(newUserDetail,newUserAccout);
         return new ResponseEntity<>(newUserDetail,HttpStatus.OK);
 
@@ -84,4 +101,5 @@ public class AuthController {
         return new ResponseEntity<>("successs",HttpStatus.OK);
 
     }
+
 }

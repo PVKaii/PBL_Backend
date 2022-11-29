@@ -1,6 +1,7 @@
 package com.example.pbl_api.service.impl;
 
 
+import com.example.pbl_api.model.OAuth2UserModel;
 import com.example.pbl_api.model.UserAccountModel;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -40,6 +41,24 @@ public class JwtService {
 	                .compact();
 	 
 	    }
+	public String generateOauth2TokenLogin(String email) {
+
+
+
+
+		return Jwts.builder()
+
+				.setSubject(email)
+
+				.setIssuedAt(new Date())
+
+				.setExpiration(new Date((new Date()).getTime() + EXPIRE_TIME * 1000))
+
+				.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+
+				.compact();
+
+	}
 	 
 	 
 	 

@@ -49,6 +49,11 @@ public class User {
         this.userAccount = userAccount;
     }
 
+    public User(String name, UserAccount userAccount) {
+        this.name = name;
+        this.userAccount = userAccount;
+    }
+
     public User() {
 
     }
@@ -68,7 +73,8 @@ public class User {
                 userModel.getUserAccount().getPassword(),
                 userModel.getUserAccount().getAuthorities().stream().map(
                         grantedAuthority -> new Role(Integer.parseInt(grantedAuthority.getAuthority()))
-                ).toList()
+                ).toList(),
+                userModel.getUserAccount().getProvider()
         );
     }
 

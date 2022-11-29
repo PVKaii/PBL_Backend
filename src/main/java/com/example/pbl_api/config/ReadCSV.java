@@ -114,7 +114,7 @@ public class ReadCSV implements ApplicationRunner {
                                             add(new Role(1));
                                             add(new Role(2));
                                         }
-                                    }
+                                    },null
                             )
                     )
             );
@@ -130,9 +130,9 @@ public class ReadCSV implements ApplicationRunner {
                                     "$2a$10$.amUH9PJ311zU8tHHdqYoOFp9dZm0suVxxIiGVwSi.ky9OeVvRpdK",
                                     new ArrayList<>(){
                                         {
-                                            add(new Role(1));
+                                            add(new Role(2));
                                         }
-                                    }
+                                    },null
                             )
                     )
             );
