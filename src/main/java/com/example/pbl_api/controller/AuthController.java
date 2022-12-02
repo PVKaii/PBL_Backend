@@ -24,6 +24,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,6 +70,12 @@ public class AuthController {
         Collection<? extends GrantedAuthority> userRoles = userService.loadRolesByAccoutName(account.getUsername());
         UserModel user = userService.loadUserDetailByAccoutName(account.getUsername());
         return new ResponseEntity<>(new JwtResponse(jwt,user,userRoles), HttpStatus.OK);
+    }
+
+    @PostMapping("email")
+    public ResponseEntity<?> sendEmail() throws MessagingException, UnsupportedEncodingException {
+        userService.sendEmail();
+        return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
 

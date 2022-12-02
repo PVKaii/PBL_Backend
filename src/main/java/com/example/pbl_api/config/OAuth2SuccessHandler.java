@@ -36,6 +36,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
+        for (Cookie cookie:
+             request.getCookies()) {
+            System.out.println(cookie.getValue());
+        }
+
         OAuth2UserModel user = (OAuth2UserModel) authentication.getPrincipal();
         String name = user.getName();
         String email = user.getEmail();

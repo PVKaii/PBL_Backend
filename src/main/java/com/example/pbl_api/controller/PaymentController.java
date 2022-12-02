@@ -95,7 +95,7 @@ public class PaymentController {
             if(payment.getState().equals("approved")){
                 orderService.order(listId,idUser,total,true,payment.getId());
                 cartService.deleteCartsById(listId);
-                redirectView.setUrl("http://localhost:5000/");
+                redirectView.setUrl("https://backendpbl6.herokuapp.com");
                 return redirectView;
             }
         } catch (PayPalRESTException e) {

@@ -10,6 +10,8 @@ import com.example.pbl_api.repository.UserRepository;
 import com.example.pbl_api.service.IUserSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -29,6 +34,9 @@ public class UserService implements IUserSerivce {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    JavaMailSender javaMailSender;
 
 
     @Autowired
@@ -80,5 +88,27 @@ public class UserService implements IUserSerivce {
     public UserModel findUserById(long id) {
         User result = userRepository.findUserById(id);
         return new UserModel(result);
+    }
+
+    public void sendEmail() throws MessagingException, UnsupportedEncodingException {
+        String toAddress = "pvkk224@gmail.com";
+        String fromAddress = "thepvk224@gmail.com";
+        String senderName = "lvkn";
+        String subject = "Please verify your registration";
+        String content = "content";
+
+
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        javaMailSender.send(message);
+
     }
 }

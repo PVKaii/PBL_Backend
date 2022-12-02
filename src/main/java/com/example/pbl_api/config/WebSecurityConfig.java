@@ -42,6 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	CustomOAuth2UserService oAuth2UserService;
 
+	@Autowired
+	CustomAuthorizationRequestRepository customAuthorizationRequestRepository;
+
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 
@@ -101,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.anyRequest().authenticated()
 				.and().oauth2Login()
-				.authorizationEndpoint().baseUri("/oauth2/authorize")
+				.authorizationEndpoint().baseUri("/oauth2/authorize").authorizationRequestRepository(customAuthorizationRequestRepository)
 				.and().redirectionEndpoint().baseUri("/oauth2/callback/*")
 				.and().userInfoEndpoint().userService(oAuth2UserService)
 				.and().successHandler(oAuth2SuccessHandler);
