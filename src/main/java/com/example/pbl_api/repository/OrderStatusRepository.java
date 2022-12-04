@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderStatusRepository extends CrudRepository<OrderStatus,Integer> {
     OrderStatus findOrderStatusById(int id);
+
+    OrderStatus findOrderStatusByName(String name);
 }

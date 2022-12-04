@@ -98,6 +98,8 @@ public class ReadCSV implements ApplicationRunner {
 
         }
 
+        
+
 
         if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
             userRepository.save(

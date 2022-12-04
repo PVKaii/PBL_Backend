@@ -43,10 +43,12 @@ public class OrderService implements IOrderService {
     @Autowired
     CartRepository cartRepository;
 
+
+
     @Override
     public UserOrderModel order(List<Long> cartList, int idUser, double total, boolean type,String payment) {
         User user =userRepository.findUserById(idUser);
-        UserOrder order= new UserOrder( LocalDate.now(),user,new OrderStatus(1),payment);
+        UserOrder order= new UserOrder( LocalDate.now(),user,orderStatusRepository.findOrderStatusByName("Chưa xác nhận"),payment);
         Bill bill = new Bill(total,LocalDate.now(),order,type);
         List<OrderDetail> orderDetailList= new ArrayList<>();
         List<BillDetail> billDetailList = new ArrayList<>();

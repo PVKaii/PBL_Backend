@@ -50,13 +50,13 @@ public class DbInitializer implements ApplicationRunner {
 //            roleRepository.save(new Role("ROLE_MEMBER"));
 //        }
 //
-//        if(orderStatusRepository.findAll().spliterator().getExactSizeIfKnown()==0){
-//            orderStatusRepository.save(new OrderStatus("Chưa xác nhận"));
-//            orderStatusRepository.save(new OrderStatus("Đã xác nhận"));
-//            orderStatusRepository.save(new OrderStatus("Đã từ chối"));
-//
-//
-//        }
+        if(orderStatusRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+            orderStatusRepository.save(new OrderStatus("Chưa xác nhận"));
+            orderStatusRepository.save(new OrderStatus("Đã xác nhận"));
+            orderStatusRepository.save(new OrderStatus("Đã từ chối"));
+
+
+        }
 //
 //
 //        if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
