@@ -16,14 +16,15 @@ public class JwtResponse {
     public JwtResponse(String token, UserModel userModel, Collection<? extends GrantedAuthority> roles) {
         this.token = token;
         this.roles = roles;
-        if(userModel.getGender()==null||userModel.getAddress()==null||userModel.getDateOfBirth()==null||
-                userModel.getPhoneNumber()==null
-        ){
-            this.userModel=null;
-        }
-        else{
-            this.userModel = userModel;
-        }
+//        if(userModel.getGender()==null||userModel.getAddress()==null||userModel.getDateOfBirth()==null||
+//                userModel.getPhoneNumber()==null
+//        ){
+//            this.userModel=null;
+//        }
+//        else{
+//            this.userModel = userModel;
+//        }
+        this.userModel=userModel;
     }
 
     public Collection<? extends GrantedAuthority> getRoles() {
