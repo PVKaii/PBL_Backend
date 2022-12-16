@@ -73,9 +73,11 @@ public class AuthController {
         return new ResponseEntity<>(new JwtResponse(jwt,user,userRoles), HttpStatus.OK);
     }
 
-    @PostMapping("email")
-    public ResponseEntity<?> sendEmail() throws MessagingException, UnsupportedEncodingException {
-        userService.sendEmail();
+    @PostMapping("verify")
+    public ResponseEntity<?> sendEmail(@RequestHeader (name="Authorization") String token) throws MessagingException, UnsupportedEncodingException {
+        token=token.replace("Bearer","");
+        String username= jwtService.getUsernameFromJwtToken(token);
+        userService.emailVerify(username);
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
@@ -110,5 +112,6 @@ public class AuthController {
         return new ResponseEntity<>("successs",HttpStatus.OK);
 
     }
+
 
 }

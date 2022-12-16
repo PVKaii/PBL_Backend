@@ -75,10 +75,17 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public UserOrderModel handleOrder(long orderId,int statusId) {
+    public UserOrderModel handleOrder(long orderId,String status) {
         UserOrder userOrder = userOrderRepository.findById(orderId);
-        if(userOrder!=null){
-            userOrder.setOrderStatus(orderStatusRepository.findOrderStatusById(statusId));
+        OrderStatus orderStatus=null;
+        if(status=="OK"){
+            orderStatus=orderStatusRepository.findOrderStatusByName("Đã xác nhận");
+        }
+        else if(status=="Deny"){
+            orderStatus=orderStatusRepository.findOrderStatusByName("Đã từ chối");
+        }
+        if(userOrder!=null&&orderStatus!=null){
+            userOrder.setOrderStatus(orderStatus);
             userOrderRepository.save(userOrder);
             return new UserOrderModel(userOrder);
         }

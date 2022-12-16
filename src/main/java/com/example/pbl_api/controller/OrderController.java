@@ -30,8 +30,8 @@ public class OrderController {
     @PutMapping("")
     public ResponseEntity<?> handleOrder(@RequestBody ObjectNode json){
         long orderId = json.get("orderId").asLong();
-        int statusId = json.get("statusId").asInt();
-        UserOrderModel rs= orderService.handleOrder(orderId,statusId);
+        String status = json.get("status").asText();
+        UserOrderModel rs= orderService.handleOrder(orderId,status);
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 

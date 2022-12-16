@@ -21,5 +21,7 @@ public interface IUserSerivce extends UserDetailsService {
 
     UserModel findUserById(long id);
 
+    void emailVerify(String username);
+
 
 }

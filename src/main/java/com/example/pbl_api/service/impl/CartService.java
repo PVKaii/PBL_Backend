@@ -66,4 +66,9 @@ public class CartService implements ICartService {
         List<Cart> listCart = listId.stream().map(id -> new Cart(id)).toList();
         cartRepository.deleteAll(listCart);
     }
+
+    @Override
+    public void deleteCartById(long id) {
+        cartRepository.delete(new Cart(id));
+    }
 }

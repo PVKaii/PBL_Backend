@@ -90,14 +90,19 @@ public class UserService implements IUserSerivce {
         return new UserModel(result);
     }
 
-    public void sendEmail() throws MessagingException, UnsupportedEncodingException {
+    @Override
+    public void emailVerify(String username) {
+        User user = userRepository.findUserByAccountName(username);
+        System.out.println(user.getId()+" "+user.getName()+" "+user.getUserAccount().getProvider());
+
+    }
+
+    public void sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
         String toAddress = "pvkk224@gmail.com";
-        String fromAddress = "thepvk224@gmail.com";
-        String senderName = "lvkn";
+        String fromAddress = email;
+        String senderName = "Công ty LVKN";
         String subject = "Please verify your registration";
         String content = "content";
-
-
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

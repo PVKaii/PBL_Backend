@@ -10,7 +10,7 @@ import java.util.List;
 public interface IOrderService {
     UserOrderModel order(List<Long> cartList, int idUser, double total, boolean type,String payment);
 
-    UserOrderModel handleOrder(long orderId,int StatusId);
+    UserOrderModel handleOrder(long orderId,String status);
 
     List<UserOrderModel> getOrdersByUserId(long userId);
 

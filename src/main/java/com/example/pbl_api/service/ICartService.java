@@ -14,4 +14,6 @@ public interface ICartService {
 
     void deleteCartsById(List<Long> listId);
 
+    void deleteCartById(long id);
+
 }

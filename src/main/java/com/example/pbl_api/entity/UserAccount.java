@@ -25,7 +25,7 @@ public class UserAccount implements Serializable {
 	    @Column(name = "password", nullable = false)
 	    private String password;
 
-		@Column(name = "provider")
+		@Column(name = "provider",unique = true)
 		private String provider;
 
 		@OneToOne(mappedBy = "userAccount")
