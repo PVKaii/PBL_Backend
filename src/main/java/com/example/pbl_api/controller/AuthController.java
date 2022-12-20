@@ -34,8 +34,6 @@ import java.util.List;
 @RestController
 public class AuthController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
 
     @Autowired
     UserService userService;
@@ -43,26 +41,18 @@ public class AuthController {
     @Autowired
     JwtService jwtService;
 
+
     @Autowired
     PasswordEncoder encoder;
 
-
+    @Autowired
+    AuthenticationManager authenticationManager;
 
 
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody UserAccountModel userAccount){
-        Authentication authentication =authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        userAccount.getUsername(),
-                        userAccount.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt=jwtService.generateTokenLogin(authentication);
-        UserDetails userDetails=(UserDetails) authentication.getPrincipal();
-        UserModel user = userService.loadUserDetailByAccoutName(userDetails.getUsername());
-        System.out.println(user.getName());
-        return new ResponseEntity<>(new JwtResponse(jwt,user,userDetails.getAuthorities()), HttpStatus.OK);
+        JwtResponse response= userService.login(userAccount,authenticationManager);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("provider")
@@ -73,11 +63,9 @@ public class AuthController {
         return new ResponseEntity<>(new JwtResponse(jwt,user,userRoles), HttpStatus.OK);
     }
 
-    @PostMapping("verify")
-    public ResponseEntity<?> sendEmail(@RequestHeader (name="Authorization") String token) throws MessagingException, UnsupportedEncodingException {
-        token=token.replace("Bearer","");
-        String username= jwtService.getUsernameFromJwtToken(token);
-        userService.emailVerify(username);
+    @GetMapping("verify")
+    public ResponseEntity<?> verify(@RequestParam("code") String code)  {
+        userService.enableAccount(code);
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
@@ -93,23 +81,29 @@ public class AuthController {
         String password=encoder.encode(json.get("password").asText());
         List<String> roles= Arrays.asList(mapper.convertValue( json.get("roles"), String[].class));
         UserModel newUserDetail=mapper.convertValue(json.get("userDetail"),UserModel.class);
-        UserAccountModel newUserAccout = new UserAccountModel(username,password,roles,null);
-        userService.saveNewUser(newUserDetail,newUserAccout);
-        return new ResponseEntity<>(newUserDetail,HttpStatus.OK);
+        UserAccountModel newUserAccout = new UserAccountModel(username,password,roles);
+        String verifyCode= userService.saveNewUser(newUserDetail,newUserAccout);
+        userService.emailVerify(newUserDetail.getEmail(),verifyCode);
+        return new ResponseEntity<>(verifyCode,HttpStatus.OK);
 
     }
 
 
 
-    @PutMapping("user/edit/{id}")
-    public ResponseEntity<?> edit(@RequestBody ObjectNode json, @PathVariable(name = "id") long id) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules();
-        UserModel user = userService.findUserById(id);
-        if(user== null) throw new Exception();
-        UserModel userDetail=mapper.convertValue(json.get("userDetail"),UserModel.class);
-        userService.editUser(id,userDetail);
-        return new ResponseEntity<>("successs",HttpStatus.OK);
+    @PutMapping("user/edit")
+    public ResponseEntity<?> edit(@RequestBody UserModel userDetail,@RequestHeader("Authorization") String token) throws Exception {
+        if (token != null && token.startsWith("Bearer ")) {
+            token=token.replace("Bearer ","");
+            String username= jwtService.getUsernameFromJwtToken(token);
+            userService.editUser(username,userDetail);
+        }
+
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.findAndRegisterModules();
+//        UserModel user = userService.findUserById(id);
+//        if(user== null) throw new Exception();
+//        userService.editUser(id,userDetail);
+        return new ResponseEntity<>(userDetail,HttpStatus.OK);
 
     }
 

@@ -37,6 +37,8 @@ public class UserModel {
 
     private String email;
 
+    private Boolean enable;
+
     public UserModel(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -44,14 +46,27 @@ public class UserModel {
         this.address = user.getAddress();
         this.phoneNumber = user.getPhoneNumber();
         this.gender = user.getGender();
-        this.email=user.getUserAccount().getProvider();
+        this.email=user.getEmail();
+        this.enable=user.getUserAccount().getEnable();
+    }
+
+    public UserModel(String name, LocalDate dateOfBirth, String address, String phoneNumber, Boolean gender) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+    }
+
+    public Boolean getEnable() {
+        return enable;
     }
 
     public UserModel() {
     }
 
-    public UserModel(String name) {
-        this.name = name;
+    public UserModel(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
@@ -61,6 +76,8 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 
     public long getId() {
         return id;

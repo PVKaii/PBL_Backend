@@ -3,6 +3,7 @@ package com.example.pbl_api.service.impl;
 import com.example.pbl_api.contants.RandomPassword;
 import com.example.pbl_api.entity.User;
 import com.example.pbl_api.entity.UserAccount;
+import com.example.pbl_api.model.JwtResponse;
 import com.example.pbl_api.model.UserAccountModel;
 import com.example.pbl_api.model.UserModel;
 import com.example.pbl_api.repository.UserAccountRepository;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,11 +46,14 @@ public class UserService implements IUserSerivce {
     @Autowired
     RandomPassword randomPassword;
 
+    @Autowired
+    JwtService jwtService;
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserAccount userAccount = userAccountRepository.findUserAccountByUsername(username);
         if(userAccount==null) throw new UsernameNotFoundException(username);
-
         return UserAccountModel.build(userAccount);
     }
 
@@ -68,17 +75,19 @@ public class UserService implements IUserSerivce {
 
 
     @Override
-    public UserModel saveNewUser(UserModel user,UserAccountModel newAccount) {
+    public String saveNewUser(UserModel user,UserAccountModel newAccount) {
         user.setUserAccount(newAccount);
         User newUser = new User(user);
         userRepository.save(newUser);
-        return null;
+        return newUser.getUserAccount().getVerifyCode();
     }
 
 
     @Override
-    public UserModel editUser(long id,UserModel user) {
-        User userEdit= userRepository.findUserById(id);
+    public UserModel editUser(String username,UserModel user) {
+        User userEdit= userRepository.findUserByAccountName(username);
+        if(userEdit==null) throw new UsernameNotFoundException(username);
+        System.out.println(userEdit.getId());
         userEdit.editUser(user);
         userRepository.save(userEdit);
         return null;
@@ -91,18 +100,12 @@ public class UserService implements IUserSerivce {
     }
 
     @Override
-    public void emailVerify(String username) {
-        User user = userRepository.findUserByAccountName(username);
-        System.out.println(user.getId()+" "+user.getName()+" "+user.getUserAccount().getProvider());
-
-    }
-
-    public void sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
+    public void emailVerify(String email,String code) throws MessagingException, UnsupportedEncodingException {
         String toAddress = "pvkk224@gmail.com";
         String fromAddress = email;
         String senderName = "Công ty LVKN";
         String subject = "Please verify your registration";
-        String content = "content";
+        String content = "verify account\n <a href='http://localhost:5000/verify?code="+code+ "'>verify </a>";
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -115,5 +118,32 @@ public class UserService implements IUserSerivce {
 
         javaMailSender.send(message);
 
+
     }
+
+    @Override
+    public JwtResponse login(UserAccountModel user,AuthenticationManager authenticationManager) {
+        Authentication authentication =authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        user.getUsername(),
+                        user.getPassword()
+                )
+        );
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt=jwtService.generateTokenLogin(authentication);
+        UserDetails userDetails=(UserDetails) authentication.getPrincipal();
+        UserModel userModel = loadUserDetailByAccoutName(userDetails.getUsername());
+        if(userModel.getEnable()==false) throw new UsernameNotFoundException(user.getUsername());
+        return new JwtResponse(jwt,userModel,userDetails.getAuthorities());
+    }
+
+    @Override
+    public void enableAccount(String code) {
+        User user = userRepository.findUserByUserAccountVerifyCode(code);
+        if(user==null) throw new UsernameNotFoundException(code);
+        user.getUserAccount().setEnable(true);
+        user.getUserAccount().setVerifyCode(null);
+        userRepository.save(user);
+    }
+
 }

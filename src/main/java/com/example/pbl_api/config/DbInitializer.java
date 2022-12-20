@@ -50,53 +50,55 @@ public class DbInitializer implements ApplicationRunner {
 //            roleRepository.save(new Role("ROLE_MEMBER"));
 //        }
 //
-        if(orderStatusRepository.findAll().spliterator().getExactSizeIfKnown()==0){
-            orderStatusRepository.save(new OrderStatus("Chưa xác nhận"));
-            orderStatusRepository.save(new OrderStatus("Đã xác nhận"));
-            orderStatusRepository.save(new OrderStatus("Đã từ chối"));
-
-
-        }
+//        if(orderStatusRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+//            orderStatusRepository.save(new OrderStatus("Chưa xác nhận"));
+//            orderStatusRepository.save(new OrderStatus("Đã xác nhận"));
+//            orderStatusRepository.save(new OrderStatus("Đã từ chối"));
 //
 //
-//        if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
-//            userRepository.save(
-//                    new User(
-//                            "PVK",
-//                            null,
-//                            "DN",
-//                            "123456789",
-//                            true,
-//                            new UserAccount("admin@gmail.com",
-//                                    encoder.encode("123456"),
-//                            new ArrayList<>(){
-//                                {
-//                                    add(new Role(1));
-//                                    add(new Role(2));
-//                                }
-//                            }
-//                            )
-//                    )
-//            );
-//
-//            userRepository.save(
-//                    new User(
-//                            "PVK2",
-//                            null,
-//                            "DN",
-//                            "123456789",
-//                            true,
-//                            new UserAccount("member@gmail.com",
-//                                    "$2a$10$.amUH9PJ311zU8tHHdqYoOFp9dZm0suVxxIiGVwSi.ky9OeVvRpdK",
-//                                    new ArrayList<>(){
-//                                        {
-//                                            add(new Role(1));
-//                                        }
-//                                    }
-//                            )
-//                    )
-//            );
 //        }
+
+
+        if(userRepository.findAll().spliterator().getExactSizeIfKnown()==0){
+            userRepository.save(
+                    new User(
+                            "admin",
+                            null,
+                            "DN",
+                            "123456789",
+                            true,
+                            "lvkn.pbl6@gmail.com",
+                            new UserAccount("admin",
+                                    encoder.encode("123456"),true,true,
+                            new ArrayList<>(){
+                                {
+                                    add(new Role(1));
+                                    add(new Role(2));
+                                }
+                            }
+                            )
+                    )
+            );
+
+            userRepository.save(
+                    new User(
+                            "member",
+                            null,
+                            "DN",
+                            "123456789",
+                            true,
+                            "pvkk224@gmail.com",
+                            new UserAccount("member",
+                                    encoder.encode("123456"),true,true,
+                                    new ArrayList<>(){
+                                        {
+                                            add(new Role(1));
+                                        }
+                                    }
+                            )
+                    )
+            );
+        }
 //
 //        if(brandRepository.findAll().spliterator().getExactSizeIfKnown()==0){
 //            brandRepository.save(new Brand("ASUS"));

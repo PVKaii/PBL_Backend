@@ -10,11 +10,11 @@ public class Attributes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name",columnDefinition = "TEXT")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "option_group_id",nullable = false)
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "option_group_id")
     private OptionGroup optionGroup;
 
     @ManyToMany(mappedBy = "attributesSet")
@@ -22,6 +22,11 @@ public class Attributes {
 
 
     public Attributes() {
+    }
+
+    public Attributes(String name, int optionGroupId) {
+        this.name = name;
+        this.optionGroup = new OptionGroup(optionGroupId);
     }
 
     public Attributes(String name, OptionGroup optionGroup) {

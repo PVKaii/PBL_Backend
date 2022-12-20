@@ -22,15 +22,15 @@ public class BillController {
     BillService billService;
 
 
-    @GetMapping("")
-    public ResponseEntity<?> getAllBills(){
-        return new ResponseEntity<>(billService.getAllBills(), HttpStatus.OK);
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<?> getBillsByUser(@PathVariable(name = "id") long id){
-        return new ResponseEntity<>(billService.getBillsByUser(id), HttpStatus.OK);
-    }
+//    @GetMapping("")
+//    public ResponseEntity<?> getAllBills(){
+//        return new ResponseEntity<>(billService.getAllBills(), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("{id}")
+//    public ResponseEntity<?> getBillsByUser(@PathVariable(name = "id") long id){
+//        return new ResponseEntity<>(billService.getBillsByUser(id), HttpStatus.OK);
+//    }
 
 //    @PostMapping ("add")
 //    public ResponseEntity<?> saveBill(@RequestBody ObjectNode json){

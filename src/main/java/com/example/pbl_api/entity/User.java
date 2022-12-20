@@ -29,6 +29,9 @@ public class User {
     @Column(name = "gender")
     private Boolean gender;
 
+    @Column(name = "email",unique = true)
+    private String email;
+
     @OneToMany(mappedBy = "user")
     private Set<UserOrder> userOrders;
 
@@ -40,17 +43,18 @@ public class User {
     private UserAccount userAccount;
 
 
-    public User(String name, LocalDate dateOfBirth, String address, String phoneNumber, Boolean gender, UserAccount userAccount) {
+    public User(String name, LocalDate dateOfBirth, String address, String phoneNumber, Boolean gender,String email, UserAccount userAccount) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.userAccount = userAccount;
+        this.email=email;
     }
 
-    public User(String name, UserAccount userAccount) {
-        this.name = name;
+    public User(String email, UserAccount userAccount) {
+        this.email = email;
         this.userAccount = userAccount;
     }
 
@@ -68,13 +72,13 @@ public class User {
         this.address = userModel.getAddress();
         this.phoneNumber = userModel.getPhoneNumber();
         this.gender = userModel.getGender();
+        this.email=userModel.getEmail();
         this.userAccount = new UserAccount(
                 userModel.getUserAccount().getUsername(),
-                userModel.getUserAccount().getPassword(),
+                userModel.getUserAccount().getPassword(),false,false,
                 userModel.getUserAccount().getAuthorities().stream().map(
                         grantedAuthority -> new Role(Integer.parseInt(grantedAuthority.getAuthority()))
-                ).toList(),
-                userModel.getUserAccount().getProvider()
+                ).toList()
         );
     }
 
@@ -84,6 +88,14 @@ public class User {
         this.address = userModel.getAddress();
         this.phoneNumber = userModel.getPhoneNumber();
         this.gender = userModel.getGender();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<UserOrder> getOrders() {

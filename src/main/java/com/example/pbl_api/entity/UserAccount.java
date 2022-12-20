@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user_account")
@@ -25,8 +26,13 @@ public class UserAccount implements Serializable {
 	    @Column(name = "password", nullable = false)
 	    private String password;
 
-		@Column(name = "provider",unique = true)
-		private String provider;
+		@Column(name = "verify_code", unique = true)
+		private String verifyCode;
+		@Column(name = "provider")
+		private Boolean provider;
+
+		@Column(name = "enable")
+		private Boolean enable;
 
 		@OneToOne(mappedBy = "userAccount")
 		private User user;
@@ -41,11 +47,21 @@ public class UserAccount implements Serializable {
 	    private Set<Role> roles;
 
 
-	public UserAccount(String username, String password, List<Role> roles,String provider) {
+
+
+	public UserAccount(String username, String password, List<Role> roles) {
 		this.username = username;
 		this.password = password;
 		this.roles= new HashSet<>(roles);
-		this.provider=provider;
+	}
+
+	public UserAccount(String username, String password, Boolean provider, Boolean enable, List<Role> roles) {
+		this.username = username;
+		this.password = password;
+		this.provider = provider;
+		this.enable = enable;
+		this.roles= new HashSet<>(roles);
+		if(enable==false) this.verifyCode= UUID.randomUUID().toString();
 	}
 
 	public UserAccount() {
@@ -58,13 +74,28 @@ public class UserAccount implements Serializable {
 //		this.roles= new HashSet<>(roles);
 	}
 
+	public String getVerifyCode() {
+		return verifyCode;
+	}
 
-	public String getProvider() {
+	public void setVerifyCode(String verifyCode) {
+		this.verifyCode = verifyCode;
+	}
+
+	public Boolean getProvider() {
 		return provider;
 	}
 
-	public void setProvider(String provider) {
+	public void setProvider(Boolean provider) {
 		this.provider = provider;
+	}
+
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 
 	public User getUser() {

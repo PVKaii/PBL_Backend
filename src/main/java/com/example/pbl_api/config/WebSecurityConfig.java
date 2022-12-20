@@ -97,7 +97,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.antMatcher("/**").authorizeRequests()
 
-				.antMatchers("/","/auth/**", "/oauth2/**","/provider",
+				.antMatchers("/","/auth/**", "/oauth2/**","/provider","/verify",
 
 						"/login","/register","/product/**","/reports","/payment/paypal/**/**")
 				.permitAll()

@@ -45,7 +45,6 @@ public class CustomAuthorizationRequestRepository implements AuthorizationReques
 
     @Override
     public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request) {
-        System.out.println(request.getRequestURL()+" 3");
         return this.loadAuthorizationRequest(request);
     }
 }

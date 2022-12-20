@@ -29,6 +29,10 @@ public class OptionGroup {
         this.category = category;
     }
 
+    public OptionGroup(int id) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

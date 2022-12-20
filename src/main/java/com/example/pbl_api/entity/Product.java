@@ -3,6 +3,7 @@ package com.example.pbl_api.entity;
 import com.example.pbl_api.model.ProductModel;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class Product {
     private String name;
 
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private Set<ProductImage> imageSet;
 
     @Column(name = "price",nullable = false)
@@ -57,13 +58,20 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<Cart> cartSet;
 
-
+    public Product(String name, List<Attributes> attributesList) {
+        this.name = name;
+        this.status=true;
+        this.price=15000;
+        this.attributesSet=attributesList.stream().collect(Collectors.toSet());
+    }
 
     public Product() {
 
     }
 
-    public Product(String name, long price, String description, Set<Attributes> attributesSet,Brand brand,Category category) {
+    public Product(String name, long price, String description,
+                   Set<Attributes> attributesSet,
+                   Brand brand,Category category,Set<ProductImage> productImageSet) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -71,6 +79,7 @@ public class Product {
         this.status=true;
         this.category=category;
         this.brand=brand;
+        this.imageSet = productImageSet;
     }
 
     public Product(ProductModel product) {
