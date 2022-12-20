@@ -86,10 +86,12 @@ public class DataInitializer  implements ApplicationRunner {
 //                    addProduct(product);
 //                }
 //            }
-//            String categoryName=object.getName_product_type();
-//            if(categoryName.equals("Máy ảnh - Máy quay phim")
-//            ||categoryName.equals("Thiết bị văn phòng")
-//            ) continue;
+            String categoryName=object.getName_product_type();
+            if(categoryName.equals("Máy ảnh - Máy quay phim")
+            ||categoryName.equals("Thiết bị văn phòng")||categoryName.equals("Điện máy - Điện gia dụng")
+                    ||categoryName.equals("Điện thoại & phụ kiện")||categoryName.equals("Thiết bị âm thanh")
+                    ||categoryName.equals("Thiết bị thông minh")
+            ) continue;
             int size = object.getProducts().size()<productAmount?object.getProducts().size():productAmount;
             Category category = categoryRepository.save(new Category(object.getName_product_type()));
             for (int i = 0; i < size; i++) {
