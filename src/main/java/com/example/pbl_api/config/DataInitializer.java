@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class DataInitializer  implements ApplicationRunner {
-    private static final int productAmount=40;
+    private static final int productAmount=10;
 
     Set<Attributes> setAtt = new HashSet<>();
 
