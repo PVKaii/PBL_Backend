@@ -17,8 +17,8 @@ public interface OptionGroupRepository extends CrudRepository<OptionGroup,Intege
 
     @Query(value = "SELECT option_group.id ,option_group.name ,option_group.category_id FROM attributes join option_group on attributes.option_group_id= option_group.id\n" +
             "group by option_group.name\n" +
-            "having count(option_group.name)<7\n " +
-            "and count(option_group.name)>2\n" +
+            "having count(option_group.name)<15\n " +
+            "and count(option_group.name)>1\n" +
             "and option_group.category_id=?1",nativeQuery = true)
     Set<OptionGroup> getListOptionToShow(int categoryId);
 }

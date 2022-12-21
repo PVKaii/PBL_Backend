@@ -103,7 +103,7 @@ public class UserService implements IUserSerivce {
     @Override
     public void emailVerify(String email,String code) throws MessagingException, UnsupportedEncodingException {
         String toAddress = email;
-        String fromAddress = "pvkk224@gmail.com";
+        String fromAddress = "lvkn.pbl6@gmail.com";
         String senderName = "Công ty LVKN";
         String subject = "Please verify your registration";
         String content = "verify account\n <a href='"+ Url.BE_URL +"/verify?code="+code+ "'>verify </a>";

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class DataInitializer  implements ApplicationRunner {
-    private static final int productAmount=10;
+    private static final int productAmount=20;
 
     Set<Attributes> setAtt = new HashSet<>();
 
@@ -95,7 +95,8 @@ public class DataInitializer  implements ApplicationRunner {
 //                    ||categoryName.equals("PC - Màn hình máy tính")
             ) continue;
             int size = object.getProducts().size()<productAmount?object.getProducts().size():productAmount;
-            Category category = categoryRepository.save(new Category(object.getName_product_type()));
+            if(categoryName.contains("PC")) categoryName = categoryName.replace("PC - ","");
+            Category category = categoryRepository.save(new Category(categoryName));
             for (int i = 0; i < size; i++) {
                     JsonDetailObject product = object.getProducts().get(i);
                     addProduct(product,category);
