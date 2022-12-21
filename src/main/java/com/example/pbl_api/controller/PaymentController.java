@@ -4,6 +4,7 @@ import com.example.pbl_api.model.PaymentModel;
 import com.example.pbl_api.service.impl.CartService;
 import com.example.pbl_api.service.impl.OrderService;
 import com.example.pbl_api.service.impl.PaymentService;
+import com.example.pbl_api.util.Url;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -95,7 +96,7 @@ public class PaymentController {
             if(payment.getState().equals("approved")){
                 orderService.order(listId,idUser,total,true,payment.getId());
                 cartService.deleteCartsById(listId);
-                redirectView.setUrl("https://backendpbl6.herokuapp.com");
+                redirectView.setUrl(Url.FE_URL);
                 return redirectView;
             }
         } catch (PayPalRESTException e) {

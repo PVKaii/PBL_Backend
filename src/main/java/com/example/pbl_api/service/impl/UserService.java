@@ -9,6 +9,7 @@ import com.example.pbl_api.model.UserModel;
 import com.example.pbl_api.repository.UserAccountRepository;
 import com.example.pbl_api.repository.UserRepository;
 import com.example.pbl_api.service.IUserSerivce;
+import com.example.pbl_api.util.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -105,7 +106,7 @@ public class UserService implements IUserSerivce {
         String fromAddress = email;
         String senderName = "Công ty LVKN";
         String subject = "Please verify your registration";
-        String content = "verify account\n <a href='http://localhost:5000/verify?code="+code+ "'>verify </a>";
+        String content = "verify account\n <a href='"+ Url.BE_URL +"/verify?code="+code+ "'>verify </a>";
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);

@@ -91,8 +91,8 @@ public class DataInitializer  implements ApplicationRunner {
             ||categoryName.equals("Thiết bị văn phòng")||categoryName.equals("Điện máy - Điện gia dụng")
                     ||categoryName.equals("Điện thoại & phụ kiện")||categoryName.equals("Thiết bị âm thanh")
                     ||categoryName.equals("Thiết bị thông minh")
-                    ||categoryName.equals("PC - Phụ kiện")
-                    ||categoryName.equals("PC - Màn hình máy tính")
+//                    ||categoryName.equals("PC - Phụ kiện")
+//                    ||categoryName.equals("PC - Màn hình máy tính")
             ) continue;
             int size = object.getProducts().size()<productAmount?object.getProducts().size():productAmount;
             Category category = categoryRepository.save(new Category(object.getName_product_type()));
