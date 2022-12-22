@@ -5,10 +5,13 @@ import com.example.pbl_api.model.CartModel;
 import com.example.pbl_api.model.ProductModel;
 import com.example.pbl_api.service.impl.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -32,8 +35,10 @@ public class CartController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAllProductsFromUserCart(@PathVariable(name = "id") long userId){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
         List<CartModel> cartProducts = cartService.getAllProductsFromUserCart(userId);
-       return new ResponseEntity<>( cartProducts,HttpStatus.OK);
+       return new ResponseEntity<>( cartProducts,httpHeaders,HttpStatus.OK);
     };
 
 
