@@ -67,6 +67,10 @@ public class UserAccountModel implements UserDetails {
         return this.password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
 

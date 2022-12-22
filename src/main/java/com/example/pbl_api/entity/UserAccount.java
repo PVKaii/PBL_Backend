@@ -68,6 +68,11 @@ public class UserAccount implements Serializable {
 
 	}
 
+	public UserAccount(Long id, String password) {
+		this.id = id;
+		this.password = password;
+	}
+
 	public void editAccount(UserAccountModel userAccountModel){
 		this.username = userAccountModel.getUsername();
 		this.password = userAccountModel.getPassword();

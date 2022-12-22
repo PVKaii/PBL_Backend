@@ -3,6 +3,7 @@ package com.example.pbl_api.controller;
 
 import com.example.pbl_api.contants.RandomPassword;
 import com.example.pbl_api.model.JwtResponse;
+import com.example.pbl_api.model.PasswordChangerModel;
 import com.example.pbl_api.model.UserAccountModel;
 import com.example.pbl_api.model.UserModel;
 import com.example.pbl_api.service.impl.JwtService;
@@ -55,13 +56,38 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("provider")
-    public ResponseEntity<?> loginByGoogle(@RequestBody UserAccountModel account){
-        String jwt=jwtService.generateOauth2TokenLogin(account.getUsername());
-        Collection<? extends GrantedAuthority> userRoles = userService.loadRolesByAccoutName(account.getUsername());
-        UserModel user = userService.loadUserDetailByAccoutName(account.getUsername());
-        return new ResponseEntity<>(new JwtResponse(jwt,user,userRoles), HttpStatus.OK);
+    @PutMapping("password")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangerModel passwordChangerModel,
+    @RequestHeader("Authorization") String token
+    ){
+        if (token != null && token.startsWith("Bearer ")) {
+            token=token.replace("Bearer ","");
+            String username= jwtService.getUsernameFromJwtToken(token);
+            userService.changePassword(username,passwordChangerModel,authenticationManager);
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("invalid  token", HttpStatus.BAD_REQUEST);
     }
+
+
+    @PostMapping("password")
+    public ResponseEntity<?> resetPassword(@RequestHeader("Authorization") String token) throws MessagingException, UnsupportedEncodingException {
+        if (token != null && token.startsWith("Bearer ")) {
+            token=token.replace("Bearer ","");
+            String username= jwtService.getUsernameFromJwtToken(token);
+            userService.resetPassword(username);
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("invalid  token", HttpStatus.BAD_REQUEST);
+    }
+
+//    @PostMapping("provider")
+//    public ResponseEntity<?> loginByGoogle(@RequestBody UserAccountModel account){
+//        String jwt=jwtService.generateOauth2TokenLogin(account.getUsername());
+//        Collection<? extends GrantedAuthority> userRoles = userService.loadRolesByAccoutName(account.getUsername());
+//        UserModel user = userService.loadUserDetailByAccoutName(account.getUsername());
+//        return new ResponseEntity<>(new JwtResponse(jwt,user,userRoles), HttpStatus.OK);
+//    }
 
     @GetMapping("verify")
     public ResponseEntity<?> verify(@RequestParam("code") String code)  {

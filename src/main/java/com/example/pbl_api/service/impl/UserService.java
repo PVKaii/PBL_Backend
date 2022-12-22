@@ -4,6 +4,7 @@ import com.example.pbl_api.contants.RandomPassword;
 import com.example.pbl_api.entity.User;
 import com.example.pbl_api.entity.UserAccount;
 import com.example.pbl_api.model.JwtResponse;
+import com.example.pbl_api.model.PasswordChangerModel;
 import com.example.pbl_api.model.UserAccountModel;
 import com.example.pbl_api.model.UserModel;
 import com.example.pbl_api.repository.UserAccountRepository;
@@ -21,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -145,6 +147,45 @@ public class UserService implements IUserSerivce {
         user.getUserAccount().setEnable(true);
         user.getUserAccount().setVerifyCode(null);
         userRepository.save(user);
+    }
+
+    @Override
+    public void changePassword(String username, PasswordChangerModel passwordChangerModel,AuthenticationManager authenticationManager) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        username,
+                        passwordChangerModel.getRecentPassword()
+                )
+        );
+
+        UserAccount account = userAccountRepository.findUserAccountByUsername(username);
+        account.setPassword(new BCryptPasswordEncoder().encode(passwordChangerModel.getNewPassword()));
+        userAccountRepository.save(account);
+    }
+
+    @Override
+    public void resetPassword(String username) throws MessagingException, UnsupportedEncodingException {
+        String newPassword = randomPassword.Random();
+        User user = userRepository.findUserByAccountName(username);
+        user.getUserAccount().setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        userRepository.save(user);
+        String email = user.getEmail();
+        String toAddress = email;
+        String fromAddress = "lvkn.pbl6@gmail.com";
+        String senderName = "Công ty LVKN";
+        String subject = "Reset password";
+        String content = "your new password is \n <h2>"+newPassword+"</h2>";
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        javaMailSender.send(message);
     }
 
 }
