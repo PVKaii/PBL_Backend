@@ -49,7 +49,7 @@ public class OrderService implements IOrderService {
     public UserOrderModel order(List<Long> cartList, int idUser, double total, boolean type,String payment) {
         User user =userRepository.findUserById(idUser);
         UserOrder order= new UserOrder( LocalDate.now(),user,orderStatusRepository.findOrderStatusByName("Chưa xác nhận"),payment);
-        Bill bill = new Bill(total,LocalDate.now(),order,type);
+        Bill bill = new Bill(total*23000,LocalDate.now(),order,type);
         List<OrderDetail> orderDetailList= new ArrayList<>();
         List<BillDetail> billDetailList = new ArrayList<>();
         for(int i =0;i<cartList.size();i++){

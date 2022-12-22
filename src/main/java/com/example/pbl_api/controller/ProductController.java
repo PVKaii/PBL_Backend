@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
@@ -38,18 +39,21 @@ public class ProductController {
 
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> addProducts(@RequestBody ProductModel product){
        ProductModel result= productService.saveProduct(product);
         return  new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> editProducts(@RequestBody ProductModel product,@PathVariable(name = "id") long id){
         ProductModel result= productService.updateProduct(id,product);
         return  new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteProducts(@PathVariable(name = "id") long id){
         System.out.println("delete");
         ProductModel productDelete= productService.findProductModelById(id);

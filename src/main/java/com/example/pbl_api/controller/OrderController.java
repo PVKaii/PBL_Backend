@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -28,6 +29,7 @@ public class OrderController {
     }
 
     @PutMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> handleOrder(@RequestBody ObjectNode json){
         long orderId = json.get("orderId").asLong();
         String status = json.get("status").asText();
