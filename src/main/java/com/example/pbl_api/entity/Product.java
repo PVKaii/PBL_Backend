@@ -101,12 +101,12 @@ public class Product {
         this.price = product.getPrice();
         this.status = product.getStatus();
         this.description = product.getDescription();
-        this.rate = product.getRate();
-        this.category = new Category(product.getCategory().getId());
-        this.brand=new Brand(product.getBrand().getId());
-        this.attributesSet = product.getAttributes().stream()
-                .map(attributesModel -> new Attributes(attributesModel.getId()))
-                .collect(Collectors.toSet());
+//        this.rate = product.getRate();
+//        this.category = new Category(product.getCategory().getId());
+//        this.brand=new Brand(product.getBrand().getId());
+//        this.attributesSet = product.getAttributes().stream()
+//                .map(attributesModel -> new Attributes(attributesModel.getId()))
+//                .collect(Collectors.toSet());
     }
 
     public Product(long id) {
