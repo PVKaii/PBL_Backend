@@ -78,10 +78,10 @@ public class OrderService implements IOrderService {
     public UserOrderModel handleOrder(long orderId,String status) {
         UserOrder userOrder = userOrderRepository.findById(orderId);
         OrderStatus orderStatus=null;
-        if(status=="OK"){
+        if(status.equals("OK")){
             orderStatus=orderStatusRepository.findOrderStatusByName("Đã xác nhận");
         }
-        else if(status=="Deny"){
+        else if(status.equals("Deny")){
             orderStatus=orderStatusRepository.findOrderStatusByName("Đã từ chối");
         }
         if(userOrder!=null&&orderStatus!=null){

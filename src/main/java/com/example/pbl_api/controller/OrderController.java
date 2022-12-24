@@ -34,6 +34,7 @@ public class OrderController {
     }
 
     @GetMapping("pending")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getOrdersByUser(){
         return new ResponseEntity<>(orderService.getAllPendingOrder(),HttpStatus.OK);
     }
