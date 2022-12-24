@@ -1,5 +1,6 @@
 package com.example.pbl_api.service;
 
+import com.example.pbl_api.entity.User;
 import com.example.pbl_api.model.CartModel;
 import com.example.pbl_api.model.OrderStatusModel;
 import com.example.pbl_api.model.ProductModel;
@@ -15,4 +16,6 @@ public interface IOrderService {
     List<UserOrderModel> getOrdersByUserId(long userId);
 
     UserOrderModel findOrderByPayment(String payment);
+
+    List<UserOrderModel> getAllPendingOrder();
 }

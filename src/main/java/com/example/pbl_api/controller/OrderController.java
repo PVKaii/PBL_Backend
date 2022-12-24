@@ -33,6 +33,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrdersByUserId(userId),httpHeaders ,HttpStatus.OK);
     }
 
+    @GetMapping("pending")
+    public ResponseEntity<?> getOrdersByUser(){
+        return new ResponseEntity<>(orderService.getAllPendingOrder(),HttpStatus.OK);
+    }
+
     @PutMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> handleOrder(@RequestBody ObjectNode json){
@@ -54,6 +59,5 @@ public class OrderController {
 //        return new ResponseEntity<>(orderService.order(cartList,idUser,total,type), HttpStatus.OK);
 //        return new ResponseEntity<>("OK", HttpStatus.OK);
         return null;
-
     }
 }

@@ -105,4 +105,15 @@ public class OrderService implements IOrderService {
         UserOrder result = userOrderRepository.findUserOrderByPayment(payment);
         return  new UserOrderModel(result);
     }
+
+    @Override
+    public List<UserOrderModel> getAllPendingOrder() {
+        List<UserOrder> pendingOrder =((List<UserOrder>) userOrderRepository.findAll())
+                .stream().filter(userOrder -> userOrder.getOrderStatus().getName().equals("Chưa xác nhận"))
+                .collect(Collectors.toList());
+        List<UserOrderModel> rs = pendingOrder
+                .stream().map(userOrder -> new UserOrderModel(userOrder)).collect(Collectors.toList());
+        return rs;
+
+    }
 }
