@@ -167,7 +167,7 @@ public class UserService implements IUserSerivce {
     public void resetPassword(String email) throws MessagingException, UnsupportedEncodingException {
         String newPassword = randomPassword.Random();
         User user = userRepository.findUserByEmail(email);
-        if(user==null) return;
+        if(user==null) throw new UsernameNotFoundException(email);
         user.getUserAccount().setPassword(new BCryptPasswordEncoder().encode(newPassword));
         userRepository.save(user);
         String toAddress = email;
