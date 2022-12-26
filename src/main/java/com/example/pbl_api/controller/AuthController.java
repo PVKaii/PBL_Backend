@@ -76,14 +76,9 @@ public class AuthController {
 
 
     @PostMapping("password")
-    public ResponseEntity<?> resetPassword(@RequestHeader("Authorization") String token) throws MessagingException, UnsupportedEncodingException {
-        if (token != null && token.startsWith("Bearer ")) {
-            token=token.replace("Bearer ","");
-            String username= jwtService.getUsernameFromJwtToken(token);
-            userService.resetPassword(username);
+    public ResponseEntity<?> resetPassword(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
+            userService.resetPassword(email);
             return new ResponseEntity<>("success", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("invalid  token", HttpStatus.BAD_REQUEST);
     }
 
 //    @PostMapping("provider")
