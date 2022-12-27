@@ -9,6 +9,6 @@ public class PaypalConfig {
     public static final String PAYPAL_METHOD = "paypal";
     public static final String PAYPAL_INTENT = "sale";
     public static final String PAYPAL_RETURN_URL = Url.BE_URL+"/payment/paypal/success";
-    public static final String PAYPAL_CANCEL_URL = "http://google.com";
+    public static final String PAYPAL_CANCEL_URL = Url.BE_URL;
 
 }

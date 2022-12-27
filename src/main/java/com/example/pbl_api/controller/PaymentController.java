@@ -102,7 +102,7 @@ public class PaymentController {
         } catch (PayPalRESTException e) {
 
         }
-        redirectView.setUrl("http://localhost:5000/product");
+        redirectView.setUrl(Url.BE_URL);
         return redirectView;
     }
 }

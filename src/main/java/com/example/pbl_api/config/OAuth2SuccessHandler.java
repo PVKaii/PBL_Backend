@@ -10,6 +10,7 @@ import com.example.pbl_api.model.UserModel;
 import com.example.pbl_api.repository.UserRepository;
 import com.example.pbl_api.service.impl.JwtService;
 import com.example.pbl_api.service.impl.UserService;
+import com.example.pbl_api.util.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
+import javax.servlet.UnavailableException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +52,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String email = authen.getEmail();
         handleProvider(email,name);
         User user = userRepository.findUserByEmail(email);
-        response.sendRedirect("http://localhost:3000/login/oauth2?code="+user.getUserAccount().getUsername()+"@"+email);
+        if(user.getUserAccount().getProvider()==false) throw new UnavailableException("account unavailable");
+        response.sendRedirect(Url.FE_URL +"/login/oauth2?code="+user.getUserAccount().getUsername()+"@"+email);
     }
 
     void handleProvider(String email,String name){
