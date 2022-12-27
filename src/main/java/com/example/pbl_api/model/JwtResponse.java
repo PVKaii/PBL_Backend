@@ -19,7 +19,8 @@ public class JwtResponse {
         if(userModel.getGender()==null||userModel.getAddress()==null||userModel.getDateOfBirth()==null||
                 userModel.getPhoneNumber()==null||userModel.getName()==null
         ){
-            this.userModel=null;
+            this.userModel=new UserModel();
+            this.userModel.setId(userModel.getId());
         }
         else{
             this.userModel = userModel;
