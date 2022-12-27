@@ -96,7 +96,7 @@ public class PaymentController {
             if(payment.getState().equals("approved")){
                 orderService.order(listId,idUser,total,true,payment.getId());
                 cartService.deleteCartsById(listId);
-                redirectView.setUrl(Url.FE_URL);
+                redirectView.setUrl(Url.FE_URL+"/paymentsuccess");
                 return redirectView;
             }
         } catch (PayPalRESTException e) {
