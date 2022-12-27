@@ -79,7 +79,7 @@ public class AuthController {
     @PostMapping("password")
     public ResponseEntity<?> resetPassword(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException, UnavailableException {
             userService.resetPassword(email);
-            return new ResponseEntity<>("success", HttpStatus.OK);
+            return new ResponseEntity<>("Kiem tra email", HttpStatus.OK);
     }
 
 //    @PostMapping("provider")
@@ -93,7 +93,7 @@ public class AuthController {
     @GetMapping("verify")
     public ResponseEntity<?> verify(@RequestParam("code") String code)  {
         userService.enableAccount(code);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("Xac thuc thanh cong", HttpStatus.OK);
     }
 
 

@@ -52,7 +52,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String email = authen.getEmail();
         handleProvider(email,name);
         User user = userRepository.findUserByEmail(email);
-        if(user.getUserAccount().getProvider()==false) throw new UnavailableException("account unavailable");
+        if(user.getUserAccount().getProvider()==false) response.sendRedirect(Url.FE_URL+"/login");
         response.sendRedirect(Url.FE_URL +"/login/oauth2?code="+user.getUserAccount().getUsername()+"@"+email);
     }
 
