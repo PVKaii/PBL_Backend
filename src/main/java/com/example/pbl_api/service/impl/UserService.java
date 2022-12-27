@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.UnavailableException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -150,7 +151,7 @@ public class UserService implements IUserSerivce {
     }
 
     @Override
-    public void changePassword(String username, PasswordChangerModel passwordChangerModel,AuthenticationManager authenticationManager) {
+    public void changePassword(String username, PasswordChangerModel passwordChangerModel,AuthenticationManager authenticationManager) throws UnavailableException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         username,
@@ -159,15 +160,17 @@ public class UserService implements IUserSerivce {
         );
 
         UserAccount account = userAccountRepository.findUserAccountByUsername(username);
+        if(account.getProvider()==true) throw new UnavailableException("unavailable");
         account.setPassword(new BCryptPasswordEncoder().encode(passwordChangerModel.getNewPassword()));
         userAccountRepository.save(account);
     }
 
     @Override
-    public void resetPassword(String email) throws MessagingException, UnsupportedEncodingException {
+    public void resetPassword(String email) throws MessagingException, UnsupportedEncodingException, UnavailableException {
         String newPassword = randomPassword.Random();
         User user = userRepository.findUserByEmail(email);
         if(user==null) throw new UsernameNotFoundException(email);
+        if(user.getUserAccount().getProvider()==true) throw new UnavailableException("unavailable");
         user.getUserAccount().setPassword(new BCryptPasswordEncoder().encode(newPassword));
         userRepository.save(user);
         String toAddress = email;

@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.UnavailableException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class AuthController {
     @PutMapping("password")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangerModel passwordChangerModel,
     @RequestHeader("Authorization") String token
-    ){
+    ) throws UnavailableException {
         if (token != null && token.startsWith("Bearer ")) {
             token=token.replace("Bearer ","");
             String username= jwtService.getUsernameFromJwtToken(token);
@@ -76,7 +77,7 @@ public class AuthController {
 
 
     @PostMapping("password")
-    public ResponseEntity<?> resetPassword(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<?> resetPassword(@RequestParam("email") String email) throws MessagingException, UnsupportedEncodingException, UnavailableException {
             userService.resetPassword(email);
             return new ResponseEntity<>("success", HttpStatus.OK);
     }

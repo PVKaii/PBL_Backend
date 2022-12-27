@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.mail.MessagingException;
+import javax.servlet.UnavailableException;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
@@ -33,8 +34,8 @@ public interface IUserSerivce extends UserDetailsService {
 
     void enableAccount(String code);
 
-    void changePassword(String username, PasswordChangerModel passwordChangerModel,AuthenticationManager authenticationManager);
+    void changePassword(String username, PasswordChangerModel passwordChangerModel,AuthenticationManager authenticationManager) throws UnavailableException;
 
-    void resetPassword(String username) throws MessagingException, UnsupportedEncodingException;
+    void resetPassword(String username) throws MessagingException, UnsupportedEncodingException, UnavailableException;
 
 }
