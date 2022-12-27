@@ -42,7 +42,7 @@ public interface ReportsRepository extends CrudRepository<Category,Integer> {
             "where yearweek(bill.day)=yearweek(now())\n" +
             " group by label\n" +
             "union\n" +
-            "select count(order_detail.product_id) as data , \"Amount products sales\" as label\n" +
+            "select count(order_detail.product_id)*order_detail.amount as data , \"Amount products sales\" as label\n" +
             "from order_detail\n" +
             "join bill_detail on bill_detail.detail_id=order_detail.id\n" +
             "join bill on bill_detail.bill_id=bill.id \n" +
